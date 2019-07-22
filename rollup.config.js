@@ -5,10 +5,11 @@ import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
+import copy from 'rollup-plugin-copy'
 
 import pkg from './package.json'
 
-export default {
+export default [{
   input: 'src/index.js',
   output: [
     {
@@ -31,9 +32,14 @@ export default {
     svgr(),
     babel({
       exclude: 'node_modules/**',
-      plugins: [ 'external-helpers' ]
+      plugins: ['external-helpers']
     }),
     resolve(),
-    commonjs()
+    commonjs(),
+    copy({
+      targets: [
+        { src: 'src/index.d.ts', dest: 'dist' }
+      ]
+    })
   ]
-}
+}]

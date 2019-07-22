@@ -1,8 +1,9 @@
-/* add css styles here (optional) */
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
 
-.test {
-  display: inline-block;
-  margin: 2em auto;
-  border: 2px solid #000;
-  font-size: 2em;
+.flexColumn {
+  display: flex;
+  flex-direction: column;
 }

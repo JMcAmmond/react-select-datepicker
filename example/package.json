@@ -9,7 +9,9 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
-    "react-select-datepicker": "file:.."
+    "react-select-datepicker": "file:..",
+    "styled-components": "^4.3.2",
+    "moment": "^2.24.0"
   },
   "scripts": {
     "start": "react-scripts start",
