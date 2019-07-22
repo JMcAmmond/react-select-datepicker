@@ -44,7 +44,23 @@ export default class App extends Component {
           />
         </DateContainer>
 
+        <H3>Max Date</H3>
+        <DateContainer>
+          <StyledSelectDatepicker
+            value={this.state.maxValue}
+            onDateChange={this.onMaxDateChange}
+            maxDate={new Date(1999, 11, 31)}
+          />
+        </DateContainer>
 
+        <H3>Min Date</H3>
+        <DateContainer>
+          <StyledSelectDatepicker
+            value={this.state.minValue}
+            onDateChange={this.onMinDateChange}
+            minDate={new Date(2000, 0, 1)}
+          />
+        </DateContainer>
       </div>
     )
   }
