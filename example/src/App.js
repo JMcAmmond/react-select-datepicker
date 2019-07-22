@@ -9,7 +9,7 @@ export default class App extends Component {
     this.state = {
       value: null,
       maxValue: new Date(),
-      minValue: new Date(2001, 0, 1)
+      minValue: new Date(1956, 0, 1)
     }
   }
 
@@ -49,7 +49,7 @@ export default class App extends Component {
           <StyledSelectDatepicker
             value={this.state.maxValue}
             onDateChange={this.onMaxDateChange}
-            maxDate={new Date(2100, 11, 31)}
+            maxDate={new Date(1999, 11, 31)}
           />
         </DateContainer>
 

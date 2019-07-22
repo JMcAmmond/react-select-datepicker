@@ -40,7 +40,7 @@ const getMonths = (showLabel) => {
   return months
 }
 
-const getYears = (max, min, showLabel) => {
+const getYears = (max, min, showLabel, value) => {
   const years = []
   let maxYear
   let minYear
@@ -61,6 +61,16 @@ const getYears = (max, min, showLabel) => {
     // No max or min
     maxYear = moment(max).year()
     minYear = 1900
+  }
+
+  if (value) {
+    if (value > maxYear) {
+      maxYear = value
+    }
+
+    if (value < minYear) {
+      minYear = value
+    }
   }
 
   years.push(<option value='' disabled>{showLabel ? 'Year' : ''}</option>)

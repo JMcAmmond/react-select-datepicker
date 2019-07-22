@@ -50,8 +50,8 @@ export default class SelectDatepicker extends Component {
    */
   onInputChange = (e) => {
     this.setState({
-      /* error: '',
-      hasError: false, */
+      error: '',
+      hasError: false,
       [e.target.name]: e.target.value
     }, () => {
       this.validate()
@@ -135,7 +135,7 @@ export default class SelectDatepicker extends Component {
         'year',
         'Year',
         this.state.year,
-        getYears(this.props.maxDate, this.props.minDate, this.props.showLabels)
+        getYears(this.props.maxDate, this.props.minDate, this.props.showLabels, this.state.year)
       )
     }
 
