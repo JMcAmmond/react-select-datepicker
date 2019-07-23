@@ -1,6 +1,6 @@
 {
   "name": "react-select-datepicker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple and reusable dropdown datepicker component for React",
   "author": "JMcAmmond",
   "license": "MIT",
@@ -8,6 +8,15 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
+  "keywords": [
+    "react",
+    "datepicker",
+    "date",
+    "select",
+    "reactjs",
+    "dropdown",
+    "datepicker-component"
+  ],
   "engines": {
     "node": ">=8",
     "npm": ">=5"
