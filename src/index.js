@@ -175,7 +175,6 @@ export default class SelectDatepicker extends Component {
 
   render() {
     const orderArray = this.props.format.split('/')
-console.log('render');
     return (
       <div className={`rid ${this.props.className}`}>
         <div className={`rid_date-container ${styles.flexRow}`}>
