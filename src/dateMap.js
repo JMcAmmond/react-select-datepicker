@@ -16,10 +16,10 @@ const MONTHMAP = {
   12: 'December'
 }
 
-const getDays = (showLabel) => {
+const getDays = (showLabel, dayLabel) => {
   const days = []
 
-  days.push(<option value='' disabled>{showLabel ? 'Day' : ''}</option>)
+  days.push(<option value='' disabled>{showLabel ? dayLabel || 'Day' : ''}</option>)
 
   for (let i = 1; i <= 31; i++) {
     days.push(<option value={`${i}`}>{i}</option>)
@@ -28,19 +28,19 @@ const getDays = (showLabel) => {
   return days
 }
 
-const getMonths = (showLabel) => {
+const getMonths = (showLabel, monthLabel, monthNames) => {
   const months = []
 
-  months.push(<option value='' disabled>{showLabel ? 'Month' : ''}</option>)
+  months.push(<option value='' disabled>{showLabel ? monthLabel || 'Month' : ''}</option>)
 
   for (let i = 1; i <= 12; i++) {
-    months.push(<option value={`${i}`}>{MONTHMAP[i]}</option>)
+    months.push(<option value={`${i}`}>{monthNames ? monthNames[i - 1] : MONTHMAP[i]}</option>)
   }
 
   return months
 }
 
-const getYears = (max, min, showLabel, value) => {
+const getYears = (max, min, showLabel, value, yearLabel) => {
   const years = []
   let maxYear
   let minYear
@@ -73,7 +73,7 @@ const getYears = (max, min, showLabel, value) => {
     }
   }
 
-  years.push(<option value='' disabled>{showLabel ? 'Year' : ''}</option>)
+  years.push(<option value='' disabled>{showLabel ? yearLabel || 'Year' : ''}</option>)
 
   for (let i = maxYear; i >= minYear; i--) {
     years.push(<option value={`${i}`}>{i}</option>)

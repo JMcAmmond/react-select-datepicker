@@ -116,26 +116,31 @@ export default class SelectDatepicker extends Component {
    * Return requested date container
    */
   getDateFormat = (value) => {
+    const dayLabel = (this.props.labels && this.props.labels.day) || 'Day';
+    const monthLabel = (this.props.labels && this.props.labels.month) || 'Month';
+    const yearLabel = (this.props.labels && this.props.labels.year) ||'Year';
+
     const format = {
       day: this.renderDateContainer(
         'rid_day-container',
         'day',
-        'Day',
-        this.state.day, getDays(this.props.showLabels)
+        dayLabel,
+        this.state.day,
+        getDays(this.props.showLabels, dayLabel)
       ),
       month: this.renderDateContainer(
         'rid_month-container',
         'month',
-        'Month',
+        monthLabel,
         this.state.month,
-        getMonths(this.props.showLabels)
+        getMonths(this.props.showLabels, monthLabel, this.props.monthNames)
       ),
       year: this.renderDateContainer(
         'rid_year-container',
         'year',
-        'Year',
+        yearLabel,
         this.state.year,
-        getYears(this.props.maxDate, this.props.minDate, this.props.showLabels, this.state.year)
+        getYears(this.props.maxDate, this.props.minDate, this.props.showLabels, this.state.year, yearLabel)
       )
     }
 
@@ -170,7 +175,7 @@ export default class SelectDatepicker extends Component {
 
   render() {
     const orderArray = this.props.format.split('/')
-
+console.log('render');
     return (
       <div className={`rid ${this.props.className}`}>
         <div className={`rid_date-container ${styles.flexRow}`}>
@@ -225,5 +230,11 @@ SelectDatepicker.propTypes = {
       'year/month/day',
       'year/day/month'
     ]
-  )
+  ),
+  labels: PropTypes.shape({
+    year: PropTypes.string,
+    month: PropTypes.string,
+    day: PropTypes.string
+  }),
+  monthNames: PropTypes.arrayOf(PropTypes.string)
 }

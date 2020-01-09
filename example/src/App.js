@@ -61,6 +61,24 @@ export default class App extends Component {
             minDate={new Date(2000, 0, 1)}
           />
         </DateContainer>
+
+        <H3>Custom Labels</H3>
+        <DateContainer>
+          <StyledSelectDatepicker
+            value={this.state.value}
+            labels={{
+              year: "Año",
+              month: "Mes",
+              day: "Día"
+            }}
+            monthNames={[
+              "enero", "febrero", "marzo", "abril",
+              "mayo", "junio", "julio", "agosto",
+              "septiembre", "octubre", "noviembre", "diciembre"
+            ]}
+            onDateChange={this.onDateChange}
+          />
+        </DateContainer>
       </div>
     )
   }
