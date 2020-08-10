@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import SelectDatepicker from 'react-select-datepicker'
+import styled from 'styled-components';
+import SelectDatepicker from 'react-select-datepicker';
 
-const StyledSelectDatepicker = styled(SelectDatepicker)`
+const StyledSelectDatepicker: any = styled(SelectDatepicker)`
   .rid_date-container {
     > div {
       margin-right: 15px;
@@ -49,7 +49,7 @@ const StyledSelectDatepicker = styled(SelectDatepicker)`
     margin-top: 6px;
     font-size: 0.9rem;
   }
-`
+`;
 
 const DateContainer = styled.div`
   display: flex;
@@ -60,6 +60,6 @@ const DateContainer = styled.div`
   .rid_date-container {
     justify-content: center;
   }
-`
+`;
 
-export { StyledSelectDatepicker, DateContainer }
+export { StyledSelectDatepicker, DateContainer };
