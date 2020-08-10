@@ -1,23 +1,115 @@
 {
-  "parser": "babel-eslint",
-  "extends": [
-    "standard",
-    "standard-react"
-  ],
   "env": {
-    "es6": true
+    "browser": true,
+    "es6": true,
+    "jest": true
   },
-  "plugins": [
-    "react"
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "plugin:you-dont-need-lodash-underscore/compatible"
   ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "sort-imports-es6-autofix"
+  ],
   "rules": {
-    // don't force es6 functions to include space before paren
-    "space-before-function-paren": 0,
-
-    // allow specifying true explicitly for boolean props
-    "react/jsx-boolean-value": 0
-  }
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-closing-bracket-location": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.spec.{ts,tsx}", "**/*webpack.*.js"],
+        "optionalDependencies": true,
+        "peerDependencies": false,
+        "bundledDependencies": true
+      }
+    ],
+    "import/extensions": [
+      "error",
+      {
+        "js": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-unused-vars": "off",
+    "linebreak-style": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignorePattern": "^import [\\s\\S]"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "react/prefer-stateless-function": "off",
+    "react/destructuring-assignment": "off",
+    "operator-linebreak": "off",
+    "react/static-property-placement": ["error", "static public field"],
+    "no-array-constructor": "off",
+    "react/prop-types": "off",
+    "no-undef": "off",
+    "import/no-cycle": 0,
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": {
+          "minProperties": 4,
+          "multiline": true,
+          "consistent": true
+        },
+        "ObjectPattern": {
+          // "minProperties": 4, disabling for destructuring syntax
+          "multiline": true,
+          "consistent": true
+        },
+        "ImportDeclaration": {
+          // "minProperties": 4, disabling for named imports (another form of destructuring)
+          "multiline": true,
+          "consistent": true
+        },
+        "ExportDeclaration": {
+          "minProperties": 4,
+          "multiline": true,
+          "consistent": true
+        }
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.{ts,tsx}"],
+      "rules": {
+        "no-param-reassign": "off",
+        "max-len": "off"
+      }
+    }
+  ]
 }
