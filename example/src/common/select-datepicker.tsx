@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import SelectDatepicker from 'react-select-datepicker';
 
 const StyledSelectDatepicker: any = styled(SelectDatepicker)`
-  .rid_date-container {
+  .rsd_date-container {
     > div {
       margin-right: 15px;
 
@@ -33,13 +33,13 @@ const StyledSelectDatepicker: any = styled(SelectDatepicker)`
       }
     }
 
-    .rid_day-container select {
+    .rsd_day-container select {
       width: 60px;
     }
-    .rid_month-container select {
+    .rsd_month-container select {
       width: 90px;
     }
-    .rid_year-container select {
+    .rsd_year-container select {
       width: 80px;
     }
   }
@@ -57,7 +57,7 @@ const DateContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  .rid_date-container {
+  .rsd_date-container {
     justify-content: center;
   }
 `;

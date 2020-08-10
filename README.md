@@ -16,38 +16,26 @@ npm install --save react-select-datepicker
 
 ## Usage
 
-```jsx
-import React, { Component } from 'react';
-
+```tsx
+import React, { useState, useCallback } from 'react';
 import SelectDatepicker from 'react-select-datepicker';
 
-class Example extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
+export const App = () => {
+  const [value, setValue] = useState<Date | null>(null);
 
-  onDateChange = (date) => {
-    this.setState({
-      value: date,
-    });
-  };
+  const onDateChange = useCallback((date: Date) => {
+    setValue(date);
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <SelectDatepicker
-          value={this.state.value}
-          onDateChange={this.onDateChange}
-          minDate={new Date(1900, 0, 1)}
-          maxDate={new Date()}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <SelectDatepicker
+      value={value}
+      onDateChange={onDateChange}
+      minDate={new Date(1900, 0, 1)}
+      maxDate={new Date()}
+    />
+  );
+};
 ```
 
 ## Available Props

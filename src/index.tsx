@@ -13,6 +13,7 @@ import { spreadDateToObject } from './helpers';
 import { flexRow, flexColumn } from './styles';
 
 const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
+  const [isDirty, setIsDirty] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [date, setDate] = useState<IDate>(spreadDateToObject(props.value));
@@ -80,6 +81,7 @@ const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
   const onInputChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       setDate({ ...date, [e.target.name]: e.target.value });
+      setIsDirty(true);
     },
     [date],
   );
@@ -89,7 +91,7 @@ const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
    */
   const inputField = useCallback(
     (id, label, value, options) => {
-      const className = `rid_${id}-container`;
+      const className = `rsd_${id}-container`;
 
       return (
         <div className={`${className}`} style={flexColumn}>
@@ -150,15 +152,27 @@ const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
    * When ever the date state changes then clear errors and validate the date
    */
   useEffect(() => {
-    setError('');
-    setHasError(false);
-    validate();
+    if (isDirty) {
+      setError('');
+      setHasError(false);
+      validate();
+      setIsDirty(false);
+    }
+  }, [isDirty]);
+
+  useEffect(() => {
+    const { value } = props;
+    const { day, month, year } = date;
+
+    if (value !== null && value !== buildDateFromInput(day, month, year)) {
+      setDate(spreadDateToObject(value));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date]);
+  }, [props]);
 
   return (
-    <div className={`rid ${props.className}`}>
-      <div className="rid_date-container" style={flexRow}>
+    <div className={`rsd ${props.className}`}>
+      <div className="rsd_date-container" style={flexRow}>
         {orderArray.map((key, i) => {
           return (
             <React.Fragment key={`${key}-${i}`}>
