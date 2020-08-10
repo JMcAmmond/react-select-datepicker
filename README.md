@@ -52,20 +52,21 @@ class Example extends Component {
 
 ## Available Props
 
-| Prop           | Type    | Default                                   | Options                                                                                                    |
-| -------------- | ------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| value          | Date    | -                                         | -                                                                                                          |
-| minDate        | Date    | -                                         | -                                                                                                          |
-| maxDate        | Date    | -                                         | -                                                                                                          |
-| maxDateMessage | string  | 'Date must be less than {maxDate + 1}'    | -                                                                                                          |
-| minDateMessage | string  | 'Date must be greater than {minDate - 1}' | -                                                                                                          |
-| invalidMessage | string  | 'Not a valid date'                        | -                                                                                                          |
-| showLabels     | boolean | true                                      | true, false                                                                                                |
-| showErrors     | boolean | true                                      | true, false                                                                                                |
-| onDateChange   | func    | -                                         | -                                                                                                          |
-| format         | string  | 'month/day/year'                          | 'day/month/year', 'day/year/month', 'month/day/year', 'month/year/day', 'year/month/day', 'year/day/month' |
-| labels         | Object  | English labels                            | { year: 'Year'; month: 'Month'; day: 'Day'; }                                                              |
-| monthNames     | Array   | English month names                       | ['Jan', 'Feb', 'Mar'...]                                                                                   |
+| Prop             | Type    | Default                                   | Options                                                                                                    |
+| ---------------- | ------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| value            | Date    | -                                         | -                                                                                                          |
+| minDate          | Date    | -                                         | -                                                                                                          |
+| maxDate          | Date    | -                                         | -                                                                                                          |
+| maxDateMessage   | string  | 'Date must be less than {maxDate + 1}'    | -                                                                                                          |
+| minDateMessage   | string  | 'Date must be greater than {minDate - 1}' | -                                                                                                          |
+| invalidMessage   | string  | 'Not a valid date'                        | -                                                                                                          |
+| showLabels       | boolean | true                                      | true, false                                                                                                |
+| showPlaceholders | boolean | true                                      | true, false                                                                                                |
+| showErrors       | boolean | true                                      | true, false                                                                                                |
+| onDateChange     | func    | -                                         | -                                                                                                          |
+| format           | string  | 'month/day/year'                          | 'day/month/year', 'day/year/month', 'month/day/year', 'month/year/day', 'year/month/day', 'year/day/month' |
+| labels           | Object  | English labels                            | { year: 'Year'; month: 'Month'; day: 'Day'; }                                                              |
+| monthNames       | Array   | English month names                       | ['Jan', 'Feb', 'Mar'...]                                                                                   |
 
 ## Notes
 

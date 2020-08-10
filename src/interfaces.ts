@@ -6,6 +6,7 @@ export interface ISelectDatePicker {
   minDateMessage?: string;
   invalidMessage?: string;
   showLabels?: boolean;
+  showPlaceholders?: boolean;
   showErrors?: boolean;
   onDateChange: (date: Date) => void;
   className?: string;

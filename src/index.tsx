@@ -116,7 +116,7 @@ const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
    * Creates an object with all input field elements
    */
   const dateField = useMemo(() => {
-    const { showLabels, monthNames, maxDate, minDate, labels } = props;
+    const { showPlaceholders, monthNames, maxDate, minDate, labels } = props;
 
     const dayLabel = (labels && labels.day) || 'Day';
     const monthLabel = (labels && labels.month) || 'Month';
@@ -127,19 +127,19 @@ const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
         'day',
         dayLabel,
         date.day,
-        getDays(showLabels!, dayLabel),
+        getDays(showPlaceholders!, dayLabel),
       ),
       month: inputField(
         'month',
         monthLabel,
         date.month,
-        getMonths(showLabels!, monthLabel, monthNames),
+        getMonths(showPlaceholders!, monthLabel, monthNames),
       ),
       year: inputField(
         'year',
         yearLabel,
         date.year,
-        getYears(maxDate, minDate, showLabels, date.year, yearLabel),
+        getYears(maxDate, minDate, showPlaceholders!, date.year, yearLabel),
       ),
     };
 
@@ -179,6 +179,7 @@ export default SelectDatepicker;
 SelectDatepicker.defaultProps = {
   value: null,
   showLabels: true,
+  showPlaceholders: true,
   showErrors: true,
   format: 'month/day/year',
   className: '',

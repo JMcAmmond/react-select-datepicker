@@ -15,12 +15,12 @@ const MONTHMAP = {
   12: 'December',
 };
 
-const getDays = (showLabel: boolean, dayLabel: string) => {
+const getDays = (showPlaceholder: boolean, dayLabel: string) => {
   const days = [];
 
   days.push(
     <option value="" disabled>
-      {showLabel ? dayLabel || 'Day' : ''}
+      {showPlaceholder ? dayLabel || 'Day' : ''}
     </option>,
   );
 
@@ -32,7 +32,7 @@ const getDays = (showLabel: boolean, dayLabel: string) => {
 };
 
 const getMonths = (
-  showLabel: boolean,
+  showPlaceholder: boolean,
   monthLabel: string,
   monthNames: Array<string> | undefined,
 ) => {
@@ -40,7 +40,7 @@ const getMonths = (
 
   months.push(
     <option value="" disabled>
-      {showLabel ? monthLabel || 'Month' : ''}
+      {showPlaceholder ? monthLabel || 'Month' : ''}
     </option>,
   );
 
@@ -58,7 +58,7 @@ const getMonths = (
 const getYears = (
   max: Date | undefined,
   min: Date | undefined,
-  showLabel: boolean | undefined,
+  showPlaceholder: boolean,
   value: string,
   yearLabel: string,
 ) => {
@@ -90,7 +90,7 @@ const getYears = (
 
   years.push(
     <option value="" disabled>
-      {showLabel ? yearLabel || 'Year' : ''}
+      {showPlaceholder ? yearLabel || 'Year' : ''}
     </option>,
   );
 
