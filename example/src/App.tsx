@@ -29,8 +29,11 @@ const App = () => {
 
       <H3>Standard</H3>
       <DateContainer>
-        <StyledSelectDatepicker value={value} onDateChange={onDateChange} />
-        {value && value!.toDateString()}
+        <StyledSelectDatepicker
+          value={value}
+          onDateChange={onDateChange}
+          showPlaceholders={false}
+        />
       </DateContainer>
 
       <H3>Max Date</H3>
