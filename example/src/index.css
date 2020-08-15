@@ -21,6 +21,10 @@ body {
 
 #root {
   overflow: hidden;
+
+  @media (min-width: 900px) {
+    overflow: unset;
+  }
 }
 
 code {
