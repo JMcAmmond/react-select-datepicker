@@ -1,8 +1,10 @@
+[![NPM](https://img.shields.io/npm/v/react-select-datepicker.svg)](https://www.npmjs.com/package/react-select-datepicker)
+![npm bundle size](https://img.shields.io/bundlephobia/min/react-select-datepicker)
+![GitHub contributors](https://img.shields.io/github/contributors/jmcammond/react-select-datepicker)
+![npm](https://img.shields.io/npm/dt/react-select-datepicker)
+![NPM](https://img.shields.io/npm/l/react-select-datepicker)
+
 # react-select-datepicker
-
->
-
-[![NPM](https://img.shields.io/npm/v/react-select-datepicker.svg)](https://www.npmjs.com/package/react-select-datepicker) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 A simple and reusable dropdown datepicker component for React ([Demo](https://jeffmcammond.com/react-select-datepicker/))
 
