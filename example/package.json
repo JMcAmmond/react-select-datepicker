@@ -18,10 +18,12 @@
     "@types/node": "file:../node_modules/@types/node",
     "@types/react": "file:../node_modules/@types/react",
     "@types/react-dom": "file:../node_modules/@types/react-dom",
+    "@types/react-syntax-highlighter": "^11.0.4",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-scripts": "file:../node_modules/react-scripts",
     "react-select-datepicker": "file:..",
+    "react-syntax-highlighter": "^13.3.1",
     "styled-components": "^5.1.1",
     "typescript": "file:../node_modules/typescript"
   },

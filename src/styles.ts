@@ -1,6 +1,5 @@
-export const flexRow: React.CSSProperties = {
+export const flex: React.CSSProperties = {
   display: 'flex',
-  flexDirection: 'row',
 };
 
 export const flexColumn: React.CSSProperties = {

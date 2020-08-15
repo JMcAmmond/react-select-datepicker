@@ -23,9 +23,6 @@ const StyledSelectDatepicker: any = styled(SelectDatepicker)`
         border-radius: 3px;
         border: none;
         text-align: center;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
 
         &.has-error {
           border: 2px solid #f97474;
@@ -34,13 +31,13 @@ const StyledSelectDatepicker: any = styled(SelectDatepicker)`
     }
 
     .rsd_day-container select {
-      width: 60px;
+      cursor: pointer;
     }
     .rsd_month-container select {
-      width: 90px;
+      cursor: pointer;
     }
     .rsd_year-container select {
-      width: 80px;
+      cursor: pointer;
     }
   }
 

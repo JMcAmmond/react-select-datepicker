@@ -10,7 +10,7 @@ import { isValidDate, buildDateFromInput } from './dateValidation';
 import { getDays, getMonths, getYears } from './dateMap';
 import { IDate, ISelectDatePicker } from './interfaces';
 import { spreadDateToObject } from './helpers';
-import { flexRow, flexColumn } from './styles';
+import { flex, flexColumn } from './styles';
 
 const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
   const [isDirty, setIsDirty] = useState<boolean>(true);
@@ -172,7 +172,7 @@ const SelectDatepicker: React.FC<ISelectDatePicker> = (props) => {
 
   return (
     <div className={`rsd ${props.className}`}>
-      <div className="rsd_date-container" style={flexRow}>
+      <div className="rsd_date-container" style={flex}>
         {orderArray.map((key, i) => {
           return (
             <React.Fragment key={`${key}-${i}`}>
