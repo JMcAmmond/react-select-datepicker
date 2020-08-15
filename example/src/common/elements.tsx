@@ -121,3 +121,8 @@ export const BlobContainer = styled.div`
 export const PageHeader = styled.h2`
   margin: 0 0 2rem;
 `;
+
+export const Sticky = styled.div`
+  position: sticky;
+  top: 0;
+`;
