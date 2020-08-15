@@ -8,7 +8,7 @@ const Intro: React.FC = () => {
       <Container>
         <Blob />
         <HeadLines>
-          <h1>React-Select-Datepicker</h1>
+          <h1>react-select-datepicker</h1>
           <p>A simple and reusable dropdown datepicker component for React</p>
         </HeadLines>
       </Container>
