@@ -58,7 +58,7 @@ export const Navigation = styled.div`
     text-decoration: none;
     padding: 10px 1rem;
     display: inline-block;
-    margin: 0 3px;
+    margin: 3px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 
     &:hover {
