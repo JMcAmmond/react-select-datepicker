@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SelectDatepicker } from '../components/SelectDatepicker';
 
 const StyledDatePicker = styled(SelectDatepicker)`
-  width: 500px;
+  max-width: 500px;
 
   & > div {
     margin: 0 5px;
