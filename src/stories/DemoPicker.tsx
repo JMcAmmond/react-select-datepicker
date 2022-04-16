@@ -13,7 +13,7 @@ const StyledDatePicker = styled(SelectDatepicker)`
   select {
     color: rgb(68, 68, 68);
     font-size: 13px;
-    padding: 10px 15px;
+    padding: 10px 5px;
     border-radius: 3px;
     cursor: pointer;
 

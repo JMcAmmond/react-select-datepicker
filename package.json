@@ -1,6 +1,6 @@
 {
   "name": "react-select-datepicker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple and reusable dropdown datepicker component for React",
   "author": "JMcAmmond",
   "license": "MIT",

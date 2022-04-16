@@ -8,7 +8,7 @@ A simple and reusable dropdown datepicker component for React ([Demo](https://je
 ![npm](https://img.shields.io/npm/dt/react-select-datepicker)
 ![NPM](https://img.shields.io/npm/l/react-select-datepicker)
 
-![Select Datepicker](https://github.com/jmcammond/react-select-datepicker/raw/master/example/assets/select-datepicker.png 'Select Datepicker')
+![Select Datepicker](https://raw.githubusercontent.com/JMcAmmond/public-assets/main/react-select-datepicker.PNG 'Select Datepicker')
 
 ## Install
 
@@ -31,10 +31,8 @@ export const App = () => {
 
   return (
     <SelectDatepicker
-      value={value}
+      selectedDate={value}
       onDateChange={onDateChange}
-      minDate={new Date(1900, 0, 1)}
-      maxDate={new Date()}
     />
   );
 };

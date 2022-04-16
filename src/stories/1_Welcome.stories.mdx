@@ -22,11 +22,15 @@ import { DemoPicker } from './DemoPicker.tsx';
     display: flex;
     justify-content: center;
   }
+
+  .demo {
+    margin: 50px 0;
+  }
 `}</style>
 
 <section className="center header">
 
-# react-select-datepicker
+![Select Datepicker](https://raw.githubusercontent.com/JMcAmmond/public-assets/main/logo.svg 'Select Datepicker')
 
 <p className="sub-heading">
   A simple and reusable dropdown datepicker component for React.
@@ -40,6 +44,34 @@ import { DemoPicker } from './DemoPicker.tsx';
 
 </section>
 
-<div class="flex-center">
+<div class="flex-center demo">
   <DemoPicker />
 </div>
+
+
+### Install
+
+```bash
+npm install --save react-select-datepicker
+```
+
+### Usage
+```tsx
+import React, { useState, useCallback } from 'react';
+import { SelectDatepicker } from 'react-select-datepicker';
+
+export const App = () => {
+  const [value, setValue] = useState<Date | null>();
+
+  const onDateChange = useCallback((date: Date) => {
+    setValue(date);
+  }, []);
+
+  return (
+    <SelectDatepicker
+      selectedDate={value}
+      onDateChange={onDateChange}
+    />
+  );
+};
+```
