@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs';
+import { DemoPicker } from './DemoPicker.tsx';
+
+<Meta title="Welcome" />
+
+<style>{`
+  .center { text-align: center; }
+
+  .header {
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 3rem;
+  }
+
+  .sub-heading {
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+  }
+`}</style>
+
+<section className="center header">
+
+# react-select-datepicker
+
+<p className="sub-heading">
+  A simple and reusable dropdown datepicker component for React.
+</p>
+
+[![NPM](https://img.shields.io/npm/v/react-select-datepicker.svg)](https://www.npmjs.com/package/react-select-datepicker)
+![npm bundle size](https://img.shields.io/bundlephobia/min/react-select-datepicker)
+![GitHub contributors](https://img.shields.io/github/contributors/jmcammond/react-select-datepicker)
+![npm](https://img.shields.io/npm/dt/react-select-datepicker)
+![NPM](https://img.shields.io/npm/l/react-select-datepicker)
+
+</section>
+
+<div class="flex-center">
+  <DemoPicker />
+</div>

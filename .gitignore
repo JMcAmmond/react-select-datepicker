@@ -1,17 +1,16 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+/node_modules
+/.pnp
+.pnp.js
 
-# dependencies
-node_modules
+/coverage
 
-# builds
-build
-dist
-.rpt2_cache
+/build
+/storybook-static
+/dist
 
-# misc
 .DS_Store
-.env
 .env.local
 .env.development.local
 .env.test.local
