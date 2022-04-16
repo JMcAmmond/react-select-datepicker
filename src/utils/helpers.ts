@@ -1,5 +1,7 @@
 import { Months } from '../types/SelectDatepickerOptions';
 
+export const classPrefix = 'rsd_';
+
 export const range = (start: number, stop: number, step: number) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ISelectDatepicker } from '../interfaces/ISelectDatePicker';
-import { getDaysObject, getMonthsObject, getYearsObject } from '../utils/helpers';
+import { classPrefix, getDaysObject, getMonthsObject, getYearsObject } from '../utils/helpers';
 import { OptionsRenderer } from './OptionsRenderer';
 import { SelectRenderer } from './SelectRenderer';
 
@@ -28,7 +28,7 @@ const SelectDatepicker = ({
     [options.order]
   );
   const combinedClassNames = useMemo(
-    () => ['sdp-select-datepicker', className].join(' '),
+    () => [`${classPrefix}_react-select-datepicker`, className].join(' '),
     [className]
   );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { classPrefix } from '../utils/helpers';
 
 interface ISelectRenderer {
   id: string;
@@ -26,16 +27,16 @@ export const SelectRenderer = ({
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column' }}
-      className={`sdp_select-container-${id}`}
+      className={`${classPrefix}_select-container-${id}`}
     >
-      {labels.show && <label htmlFor={id}>{labels.main}</label>}
+      {labels.show && <label htmlFor={`${classPrefix}_select-${id}`}>{labels.main}</label>}
       <select
-        id={id}
+        id={`${classPrefix}_select-${id}`}
         value={value}
         disabled={disabled}
         onChange={onChangeHandler}
         ref={ref}
-        className={`spd_select-${id}`}
+        className={`${classPrefix}_select-${id}`}
       >
         <option value={-1} disabled>
           {labels.placeholder}
