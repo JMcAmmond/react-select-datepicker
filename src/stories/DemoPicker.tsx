@@ -4,6 +4,7 @@ import { SelectDatepicker } from '../components/SelectDatepicker';
 
 const StyledDatePicker = styled(SelectDatepicker)`
   max-width: 500px;
+  width: 100%;
 
   & > div {
     margin: 0 5px;
@@ -40,11 +41,7 @@ const DemoPicker = () => {
     console.log(value);
   }, [value]);
 
-  return (
-    <div>
-      <StyledDatePicker onDateChange={(date) => setValue(date)} selectedDate={value} />
-    </div>
-  );
+  return <StyledDatePicker onDateChange={(date) => setValue(date)} selectedDate={value} />;
 };
 
 export { DemoPicker };
