@@ -16,31 +16,29 @@ const SelectDatepicker = ({
   monthRef,
   yearRef,
   dayRef,
-  options = {},
+  labels = {},
+  order = 'month/day/year',
+  reverseYears,
+  hideLabels,
   ...args
 }: ISelectDatepicker) => {
   const [year, setYear] = useState(-1);
   const [month, setMonth] = useState(-1);
   const [day, setDay] = useState(-1);
 
-  const orderArray = useMemo(
-    () => (options.order ? options.order.split('/') : ['month', 'day', 'year']),
-    [options.order]
-  );
+  const orderArray = useMemo(() => (order ? order.split('/') : ['month', 'day', 'year']), [order]);
   const combinedClassNames = useMemo(
     () => [`${classPrefix}_react-select-datepicker`, className].join(' '),
     [className]
   );
 
   const yearOptions = useMemo(
-    () => <OptionsRenderer options={getYearsObject(minDate, maxDate, options.reverseYears)} />,
-    [maxDate, options.reverseYears, minDate]
+    () => <OptionsRenderer options={getYearsObject(minDate, maxDate, reverseYears)} />,
+    [maxDate, reverseYears, minDate]
   );
   const monthOptions = useMemo(
-    () => (
-      <OptionsRenderer options={getMonthsObject(minDate, maxDate, year, options.labels?.months)} />
-    ),
-    [maxDate, options.labels?.months, minDate, year]
+    () => <OptionsRenderer options={getMonthsObject(minDate, maxDate, year, labels.months)} />,
+    [maxDate, labels.months, minDate, year]
   );
   const dayOptions = useMemo(
     () => <OptionsRenderer options={getDaysObject(minDate, maxDate, month, year)} />,
@@ -89,9 +87,9 @@ const SelectDatepicker = ({
         <SelectRenderer
           id="day"
           labels={{
-            show: options.showLabels === undefined ? true : options.showLabels,
-            main: options.labels?.dayLabel || 'Day',
-            placeholder: options.labels?.dayPlaceholder || 'Select Day',
+            hide: hideLabels,
+            main: labels.dayLabel || 'Day',
+            placeholder: labels.dayPlaceholder || 'Select Day',
           }}
           value={day}
           disabled={disabled}
@@ -104,9 +102,9 @@ const SelectDatepicker = ({
         <SelectRenderer
           id="month"
           labels={{
-            show: options.showLabels === undefined ? true : options.showLabels,
-            main: options.labels?.monthLabel || 'Month',
-            placeholder: options.labels?.monthPlaceholder || 'Select Month',
+            hide: hideLabels,
+            main: labels.monthLabel || 'Month',
+            placeholder: labels.monthPlaceholder || 'Select Month',
           }}
           value={month}
           disabled={disabled}
@@ -119,9 +117,9 @@ const SelectDatepicker = ({
         <SelectRenderer
           id="year"
           labels={{
-            show: options.showLabels === undefined ? true : options.showLabels,
-            main: options.labels?.yearLabel || 'Year',
-            placeholder: options.labels?.yearPlaceholder || 'Select Year',
+            hide: hideLabels,
+            main: labels.yearLabel || 'Year',
+            placeholder: labels.yearPlaceholder || 'Select Year',
           }}
           value={year}
           disabled={disabled}
@@ -139,16 +137,16 @@ const SelectDatepicker = ({
     handleDayChange,
     handleMonthChange,
     handleYearChange,
+    hideLabels,
+    labels.dayLabel,
+    labels.dayPlaceholder,
+    labels.monthLabel,
+    labels.monthPlaceholder,
+    labels.yearLabel,
+    labels.yearPlaceholder,
     month,
     monthOptions,
     monthRef,
-    options.labels?.dayLabel,
-    options.labels?.dayPlaceholder,
-    options.labels?.monthLabel,
-    options.labels?.monthPlaceholder,
-    options.labels?.yearLabel,
-    options.labels?.yearPlaceholder,
-    options.showLabels,
     year,
     yearOptions,
     yearRef,

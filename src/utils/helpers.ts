@@ -1,4 +1,4 @@
-import { Months } from '../types/SelectDatepickerOptions';
+import { Months } from '../types/SelectDatepickerLabels';
 
 export const classPrefix = 'rsd_';
 
@@ -32,11 +32,11 @@ export const englishMonths: Months = {
   12: 'December',
 };
 
-export const getYearsObject = (start?: Date, end?: Date, reverse = true) => {
+export const getYearsObject = (start?: Date, end?: Date, reverse?: boolean) => {
   let arr = range(
-    start ? start.getFullYear() : 1900,
     end ? end.getFullYear() : new Date().getFullYear(),
-    1
+    start ? start.getFullYear() : 1900,
+    -1
   );
   if (reverse) {
     arr = arr.reverse();

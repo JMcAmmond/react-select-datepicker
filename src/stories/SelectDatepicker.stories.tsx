@@ -42,51 +42,38 @@ SetDate.args = {
 
 export const Labels = Template.bind({});
 Labels.args = {
-  options: {
-    labels: {
-      yearLabel: 'Año',
-      monthLabel: 'Mes',
-      dayLabel: 'Día',
-      yearPlaceholder: 'Año',
-      monthPlaceholder: 'Mes',
-      dayPlaceholder: 'Día',
-      months: {
-        1: 'enero',
-        2: 'febrero',
-        3: 'marzo',
-        4: 'abril',
-        5: 'mayo',
-        6: 'junio',
-        7: 'julio',
-        8: 'agosto',
-        9: 'septiembre',
-        10: 'octubre',
-        11: 'noviembre',
-        12: 'diciembre',
-      },
+  labels: {
+    yearLabel: 'Año',
+    monthLabel: 'Mes',
+    dayLabel: 'Día',
+    yearPlaceholder: 'Año',
+    monthPlaceholder: 'Mes',
+    dayPlaceholder: 'Día',
+    months: {
+      1: 'enero',
+      2: 'febrero',
+      3: 'marzo',
+      4: 'abril',
+      5: 'mayo',
+      6: 'junio',
+      7: 'julio',
+      8: 'agosto',
+      9: 'septiembre',
+      10: 'octubre',
+      11: 'noviembre',
+      12: 'diciembre',
     },
   },
 };
 
 export const Order = Template.bind({});
 Order.args = {
-  options: {
-    order: 'day/year/month',
-  },
+  order: 'day/year/month',
 };
 
 export const ReverseYears = Template.bind({});
 ReverseYears.args = {
-  options: {
-    reverseYears: false,
-  },
-};
-ReverseYears.parameters = {
-  docs: {
-    description: {
-      story: 'reverseYears is set to `true` by default',
-    },
-  },
+  reverseYears: true,
 };
 
 export const Disabled = Template.bind({});
@@ -96,7 +83,5 @@ Disabled.args = {
 
 export const HideLabels = Template.bind({});
 HideLabels.args = {
-  options: {
-    showLabels: false,
-  },
+  hideLabels: true,
 };

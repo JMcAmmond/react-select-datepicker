@@ -4,7 +4,7 @@ import { classPrefix } from '../utils/helpers';
 interface ISelectRenderer {
   id: string;
   labels: {
-    show?: boolean;
+    hide?: boolean;
     main?: string;
     placeholder?: string;
   };
@@ -29,7 +29,7 @@ export const SelectRenderer = ({
       style={{ display: 'flex', flexDirection: 'column' }}
       className={`${classPrefix}_select-container-${id}`}
     >
-      {labels.show && <label htmlFor={`${classPrefix}_select-${id}`}>{labels.main}</label>}
+      {!labels.hide && <label htmlFor={`${classPrefix}_select-${id}`}>{labels.main}</label>}
       <select
         id={`${classPrefix}_select-${id}`}
         value={value}
