@@ -13,7 +13,7 @@ export type Months = {
   12: string;
 };
 
-export type SelectDatePickerLabels = {
+export type SelectDatepickerLabels = {
   yearLabel?: string;
   monthLabel?: string;
   dayLabel?: string;

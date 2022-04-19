@@ -1,4 +1,4 @@
 export { SelectDatepicker } from './components/SelectDatepicker';
 export { ISelectDatepicker } from './interfaces/ISelectDatePicker';
-export { SelectDatePickerLabels } from './types/SelectDatepickerLabels';
-export { SelectDatePickerOrder } from './types/SelectDatepickerOrder';
+export { SelectDatepickerLabels } from './types/SelectDatepickerLabels';
+export { SelectDatepickerOrder } from './types/SelectDatepickerOrder';

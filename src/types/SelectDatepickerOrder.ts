@@ -1,4 +1,4 @@
-export type SelectDatePickerOrder =
+export type SelectDatepickerOrder =
   | 'day/month/year'
   | 'day/year/month'
   | 'month/day/year'

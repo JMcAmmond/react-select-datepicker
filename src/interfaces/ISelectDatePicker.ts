@@ -1,5 +1,5 @@
-import { SelectDatePickerLabels } from '../types/SelectDatepickerLabels';
-import { SelectDatePickerOrder } from '../types/SelectDatepickerOrder';
+import { SelectDatepickerLabels } from '../types/SelectDatepickerLabels';
+import { SelectDatepickerOrder } from '../types/SelectDatepickerOrder';
 
 export interface ISelectDatepicker {
   id?: string;
@@ -8,7 +8,7 @@ export interface ISelectDatepicker {
   maxDate?: Date;
   selectedDate?: Date | null;
   onDateChange: (date: Date | null) => void;
-  labels?: SelectDatePickerLabels;
+  labels?: SelectDatepickerLabels;
   disabled?: boolean;
   hasError?: boolean;
   monthRef?: React.LegacyRef<HTMLSelectElement>;
@@ -16,5 +16,5 @@ export interface ISelectDatepicker {
   dayRef?: React.LegacyRef<HTMLSelectElement>;
   reverseYears?: boolean;
   hideLabels?: boolean;
-  order?: SelectDatePickerOrder;
+  order?: SelectDatepickerOrder;
 }
