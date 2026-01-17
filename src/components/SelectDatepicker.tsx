@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { ISelectDatepicker } from '../interfaces/ISelectDatePicker';
 import { classPrefix, getDaysObject, getMonthsObject, getYearsObject } from '../utils/helpers';
+import {
+  getCachedDaysObject,
+  getCachedMonthsObject,
+  getCachedYearsObject,
+} from '../utils/performance';
 import { createSafeDate, createSmartDate, isValidDate } from '../utils/dateUtils';
 import { isValidOrder, validateDateRange, isDateInRange, isDate } from '../utils/validation';
 import { useKeyboardNavigation, useFocusManagement } from '../hooks/useKeyboardNavigation';
@@ -79,16 +84,19 @@ const SelectDatepicker = ({
     [className]
   );
 
+  // Use cached versions for better performance
   const yearOptions = useMemo(
-    () => <OptionsRenderer options={getYearsObject(minDate, maxDate, reverseYears)} />,
+    () => <OptionsRenderer options={getCachedYearsObject(minDate, maxDate, reverseYears)} />,
     [maxDate, reverseYears, minDate]
   );
   const monthOptions = useMemo(
-    () => <OptionsRenderer options={getMonthsObject(minDate, maxDate, year, labels.months)} />,
+    () => (
+      <OptionsRenderer options={getCachedMonthsObject(minDate, maxDate, year, labels.months)} />
+    ),
     [maxDate, labels.months, minDate, year]
   );
   const dayOptions = useMemo(
-    () => <OptionsRenderer options={getDaysObject(minDate, maxDate, month, year)} />,
+    () => <OptionsRenderer options={getCachedDaysObject(minDate, maxDate, month, year)} />,
     [maxDate, month, minDate, year]
   );
 
@@ -97,28 +105,23 @@ const SelectDatepicker = ({
       const newYear = Number(e.target.value);
       setYear(newYear);
 
-      // Smart month validation: if current month is invalid for new year, let smart date correction handle it
-      // No need to reset to -1 since createSmartDate will handle invalid dates
+      // Smart month validation: use cached function and optimize check
+      const mOptions = getCachedMonthsObject(minDate, maxDate, newYear, labels.months);
+      const hasCurrentMonth = mOptions.some((val) => val.value === month);
 
-      // Only reset month if it's completely invalid (not in available range)
-      const mOptions = getMonthsObject(minDate, maxDate, newYear);
-      if (!mOptions.some((val) => val.value === month)) {
+      if (!hasCurrentMonth) {
         setMonth(-1);
       }
     },
-    [month, minDate, maxDate]
+    [month, minDate, maxDate, labels.months]
   );
 
-  const handleMonthChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const newMonth = Number(e.target.value);
-      setMonth(newMonth);
+  const handleMonthChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newMonth = Number(e.target.value);
+    setMonth(newMonth);
 
-      // Smart day validation: if current day is invalid for new month, let smart date correction handle it
-      // No need to reset to -1 since createSmartDate will clamp the day
-    },
-    [year]
-  );
+    // Smart day validation handled by createSmartDate - no additional logic needed
+  }, []);
 
   const handleDayChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setDay(Number(e.target.value));
@@ -192,6 +195,7 @@ const SelectDatepicker = ({
     handleMonthChange,
     handleYearChange,
     hideLabels,
+    hasError,
     labels.dayLabel,
     labels.dayPlaceholder,
     labels.monthLabel,
@@ -229,8 +233,8 @@ const SelectDatepicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [day, month, year, onDateChange]);
 
-  // Determine the appropriate validation message
-  const getValidationMessage = () => {
+  // Memoize validation message to avoid recalculation
+  const validationMessage = useMemo(() => {
     if (!hasError) return null;
 
     if (day === -1 && month === -1 && year === -1) {
@@ -247,11 +251,9 @@ const SelectDatepicker = ({
     } else if (missingFields.length === 2) {
       return `Please select a ${missingFields[0]} and ${missingFields[1]}`;
     } else {
-      return `Please select all date fields`;
+      return 'Please select all date fields';
     }
-  };
-
-  const validationMessage = getValidationMessage();
+  }, [hasError, day, month, year, labels.dayLabel, labels.monthLabel, labels.yearLabel]);
 
   return (
     <div
