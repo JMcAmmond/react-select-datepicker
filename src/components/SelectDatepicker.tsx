@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ISelectDatepicker } from '../interfaces/ISelectDatePicker';
 import { classPrefix, getDaysObject, getMonthsObject, getYearsObject } from '../utils/helpers';
+import { createSafeDate, isValidDate } from '../utils/dateUtils';
 import { OptionsRenderer } from './OptionsRenderer';
 import { SelectRenderer } from './SelectRenderer';
 
@@ -153,16 +154,22 @@ const SelectDatepicker = ({
   ]);
 
   useEffect(() => {
-    if (selectedDate !== undefined && selectedDate !== null) {
+    if (selectedDate !== undefined && selectedDate !== null && isValidDate(selectedDate)) {
       setDay(Number(selectedDate.getDate()));
       setMonth(Number(selectedDate.getMonth() + 1));
       setYear(Number(selectedDate.getFullYear()));
+    } else {
+      // Reset to invalid state if selectedDate is invalid
+      setDay(-1);
+      setMonth(-1);
+      setYear(-1);
     }
   }, [selectedDate]);
 
   useEffect(() => {
     if (year !== -1 && month !== -1 && day !== -1) {
-      onDateChange(new Date(`${month}/${day}/${year}`));
+      const newDate = createSafeDate(year, month, day);
+      onDateChange(newDate);
     } else {
       onDateChange(null);
     }

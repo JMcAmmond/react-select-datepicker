@@ -1,20 +1,14 @@
 import { Months } from '../types/SelectDatepickerLabels';
+import { getAllDaysInMonthSafe } from './dateUtils';
 
 export const classPrefix = 'rsd_';
 
 export const range = (start: number, stop: number, step: number) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
-export const getAllDaysInMonth = (year: number, month: number) => {
-  const date = new Date(`${year}/${month}/01`);
-  const dates = [];
-
-  while (date.getMonth() + 1 === month) {
-    dates.push(new Date(date).getDate());
-    date.setDate(date.getDate() + 1);
-  }
-
-  return dates;
+// Legacy export for backward compatibility - now uses safe date utilities
+export const getAllDaysInMonth = (year: number, month: number): number[] => {
+  return getAllDaysInMonthSafe(year, month);
 };
 
 export const englishMonths: Months = {

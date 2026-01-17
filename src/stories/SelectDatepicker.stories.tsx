@@ -1,87 +1,123 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from 'react';
 import { SelectDatepicker } from '../components/SelectDatepicker';
 
 export default {
   title: 'SelectDatepicker',
   component: SelectDatepicker,
-  argTypes: { minDate: { control: 'date' } },
-} as ComponentMeta<typeof SelectDatepicker>;
-
-const Template: ComponentStory<typeof SelectDatepicker> = (args) => {
-  args.minDate = args.minDate ? new Date(args.minDate) : undefined;
-  args.maxDate = args.maxDate ? new Date(args.maxDate) : undefined;
-  const [selected, setSelected] = useState(
-    args.selectedDate ? new Date(args.selectedDate) : undefined
-  );
-
-  const handleDateChange = useCallback((date) => {
-    setSelected(date);
-  }, []);
-
-  useEffect(
-    () => setSelected(args.selectedDate ? new Date(args.selectedDate) : undefined),
-    [args.selectedDate]
-  );
-
-  return <SelectDatepicker {...args} selectedDate={selected} onDateChange={handleDateChange} />;
-};
-
-export const Default = Template.bind({});
-
-export const DateRange = Template.bind({});
-DateRange.args = {
-  minDate: new Date('10/10/2013'),
-  maxDate: new Date('01/23/2019'),
-};
-
-export const SetDate = Template.bind({});
-SetDate.args = {
-  selectedDate: new Date('02/16/2019'),
-};
-
-export const Labels = Template.bind({});
-Labels.args = {
-  labels: {
-    yearLabel: 'Año',
-    monthLabel: 'Mes',
-    dayLabel: 'Día',
-    yearPlaceholder: 'Año',
-    monthPlaceholder: 'Mes',
-    dayPlaceholder: 'Día',
-    months: {
-      1: 'enero',
-      2: 'febrero',
-      3: 'marzo',
-      4: 'abril',
-      5: 'mayo',
-      6: 'junio',
-      7: 'julio',
-      8: 'agosto',
-      9: 'septiembre',
-      10: 'octubre',
-      11: 'noviembre',
-      12: 'diciembre',
-    },
+  parameters: {
+    layout: 'centered',
   },
 };
 
-export const Order = Template.bind({});
-Order.args = {
-  order: 'day/year/month',
+export const Default = {
+  render: () => {
+    const [selected, setSelected] = React.useState(null);
+    const handleDateChange = React.useCallback((date) => {
+      setSelected(date);
+    }, []);
+
+    return React.createElement(SelectDatepicker, {
+      selectedDate: selected,
+      onDateChange: handleDateChange,
+    });
+  },
 };
 
-export const ReverseYears = Template.bind({});
-ReverseYears.args = {
-  reverseYears: true,
+export const WithDateRange = {
+  render: () => {
+    const [selected, setSelected] = React.useState(null);
+    const handleDateChange = React.useCallback((date) => {
+      setSelected(date);
+    }, []);
+
+    return React.createElement(
+      'div',
+      {
+        style: { padding: '20px', maxWidth: '400px' },
+      },
+      [
+        React.createElement('h3', null, 'With Date Range'),
+        React.createElement(SelectDatepicker, {
+          selectedDate: selected,
+          onDateChange: handleDateChange,
+          minDate: new Date('2023-01-01'),
+          maxDate: new Date('2025-12-31'),
+        }),
+      ]
+    );
+  },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
+export const WithCustomLabels = {
+  render: () => {
+    const [selected, setSelected] = React.useState(null);
+    const handleDateChange = React.useCallback((date) => {
+      setSelected(date);
+    }, []);
+
+    return React.createElement(
+      'div',
+      {
+        style: { padding: '20px', maxWidth: '400px' },
+      },
+      [
+        React.createElement('h3', null, 'With Custom Labels'),
+        React.createElement(SelectDatepicker, {
+          selectedDate: selected,
+          onDateChange: handleDateChange,
+          labels: {
+            yearLabel: 'Year',
+            monthLabel: 'Month',
+            dayLabel: 'Day',
+            yearPlaceholder: 'Select Year',
+            monthPlaceholder: 'Select Month',
+            dayPlaceholder: 'Select Day',
+          },
+        }),
+      ]
+    );
+  },
 };
 
-export const HideLabels = Template.bind({});
-HideLabels.args = {
-  hideLabels: true,
+export const DifferentOrder = {
+  render: () => {
+    const [selected, setSelected] = React.useState(null);
+    const handleDateChange = React.useCallback((date) => {
+      setSelected(date);
+    }, []);
+
+    return React.createElement(
+      'div',
+      {
+        style: { padding: '20px', maxWidth: '400px' },
+      },
+      [
+        React.createElement('h3', null, 'Different Order (Day/Month/Year)'),
+        React.createElement(SelectDatepicker, {
+          selectedDate: selected,
+          onDateChange: handleDateChange,
+          order: 'day/month/year',
+        }),
+      ]
+    );
+  },
+};
+
+export const Disabled = {
+  render: () => {
+    return React.createElement(
+      'div',
+      {
+        style: { padding: '20px', maxWidth: '400px' },
+      },
+      [
+        React.createElement('h3', null, 'Disabled State'),
+        React.createElement(SelectDatepicker, {
+          selectedDate: new Date(),
+          onDateChange: () => {},
+          disabled: true,
+        }),
+      ]
+    );
+  },
 };

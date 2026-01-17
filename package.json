@@ -23,7 +23,6 @@
   "files": [
     "dist"
   ],
-  "dependencies": {},
   "peerDependencies": {
     "react": ">=17.0.2"
   },
@@ -32,14 +31,11 @@
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-url": "^6.1.0",
-    "@storybook/addon-a11y": "^6.5.12",
-    "@storybook/addon-actions": "^6.5.12",
-    "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
-    "@storybook/addon-storysource": "^6.5.12",
-    "@storybook/react": "^6.5.12",
-    "@storybook/testing-library": "0.0.13",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-docs": "^10.1.11",
+    "@storybook/addon-links": "^10.1.11",
+    "@storybook/react": "^10.1.11",
+    "@storybook/react-vite": "^10.1.11",
     "@svgr/rollup": "^6.2.1",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.2",
@@ -68,7 +64,7 @@
     "eslint-plugin-progress": "0.0.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "eslint-plugin-storybook": "^0.6.4",
+    "eslint-plugin-storybook": "10.1.11",
     "eslint-plugin-unused-imports": "^2.0.0",
     "gh-pages": "^3.2.3",
     "jest": "^27.5.1",
@@ -82,20 +78,22 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
+    "storybook": "^10.1.11",
     "styled-components": "^5.3.5",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "vite": "^7.3.1"
   },
   "scripts": {
     "test": "npm run test:eslint && npm run test:conflicts && npm run test:ts",
     "test:eslint": "npx eslint --ext .js,.jsx,.json,.html,.ts,.tsx,.mjs --report-unused-disable-directives ./src",
     "test:conflicts": "eslint-config-prettier .eslint.config.js",
     "test:ts": "npx tsc -p ./tsconfig.json --noEmit",
-    "start": "start-storybook -p 6006",
+    "start": "storybook dev -p 6006",
     "bundle": "rollup -c",
     "clean": "rm -rf ./dist ./storybook-static",
-    "build": "npm run clean && build-storybook && npm run bundle",
+    "build": "npm run clean && storybook build && npm run bundle",
     "deploy": "gh-pages -d storybook-static"
   },
   "eslintConfig": {
