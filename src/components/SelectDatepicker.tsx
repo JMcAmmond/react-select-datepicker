@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { ISelectDatepicker } from '../interfaces/ISelectDatePicker';
 import { classPrefix, getDaysObject, getMonthsObject, getYearsObject } from '../utils/helpers';
-import { createSafeDate, isValidDate } from '../utils/dateUtils';
+import { createSafeDate, createSmartDate, isValidDate } from '../utils/dateUtils';
+import { isValidOrder, validateDateRange, isDateInRange, isDate } from '../utils/validation';
+import { useKeyboardNavigation, useFocusManagement } from '../hooks/useKeyboardNavigation';
 import { OptionsRenderer } from './OptionsRenderer';
 import { SelectRenderer } from './SelectRenderer';
 
@@ -28,6 +30,50 @@ const SelectDatepicker = ({
   const [day, setDay] = useState(-1);
 
   const orderArray = useMemo(() => (order ? order.split('/') : ['month', 'day', 'year']), [order]);
+
+  // Generate unique IDs for focus management
+  const baseId = id || `datepicker-${Math.random().toString(36).substr(2, 9)}`;
+  const selectIds = useMemo(() => {
+    const ids: { [key: string]: string } = {};
+    orderArray.forEach((key) => {
+      ids[key] = `${classPrefix}_select-${key}-${baseId}`;
+    });
+    return ids;
+  }, [orderArray, baseId]);
+
+  const focusManagement = useFocusManagement(orderArray.map((key) => selectIds[key]));
+
+  // Keyboard navigation for the date picker
+  const { addKeyboardNavigation } = useKeyboardNavigation({
+    onArrowKey: (direction) => {
+      if (direction === 'right' || direction === 'down') {
+        focusManagement.focusNext();
+      } else if (direction === 'left' || direction === 'up') {
+        focusManagement.focusPrevious();
+      }
+    },
+    enabled: !disabled,
+  });
+
+  // Add keyboard navigation to all select elements
+  useEffect(() => {
+    const cleanupFunctions: (() => void)[] = [];
+
+    // Add keyboard navigation to each select element
+    orderArray.forEach((key) => {
+      const element = document.getElementById(selectIds[key]);
+      if (element) {
+        const cleanup = addKeyboardNavigation(element);
+        if (cleanup) {
+          cleanupFunctions.push(cleanup);
+        }
+      }
+    });
+
+    return () => {
+      cleanupFunctions.forEach((cleanup) => cleanup());
+    };
+  }, [orderArray, selectIds, addKeyboardNavigation]);
   const combinedClassNames = useMemo(
     () => [`${classPrefix}_react-select-datepicker`, className].join(' '),
     [className]
@@ -48,39 +94,40 @@ const SelectDatepicker = ({
 
   const handleYearChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setYear(Number(e.target.value));
+      const newYear = Number(e.target.value);
+      setYear(newYear);
 
-      //Validate if current month is in new month options
-      const mOptions = getMonthsObject(minDate, maxDate, Number(e.target.value));
+      // Smart month validation: if current month is invalid for new year, let smart date correction handle it
+      // No need to reset to -1 since createSmartDate will handle invalid dates
+
+      // Only reset month if it's completely invalid (not in available range)
+      const mOptions = getMonthsObject(minDate, maxDate, newYear);
       if (!mOptions.some((val) => val.value === month)) {
         setMonth(-1);
       }
-
-      //Validate if current day is in new day options
-      const dOptions = getDaysObject(minDate, maxDate, month, Number(e.target.value));
-      if (!dOptions.some((val) => val.value === day)) {
-        setDay(-1);
-      }
     },
-    [day, month, minDate, maxDate]
+    [month, minDate, maxDate]
   );
 
   const handleMonthChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setMonth(Number(e.target.value));
+      const newMonth = Number(e.target.value);
+      setMonth(newMonth);
 
-      //Validate if current day is in new day options
-      const dOptions = getDaysObject(minDate, maxDate, Number(e.target.value), year);
-      if (!dOptions.some((val) => val.value === day)) {
-        setDay(-1);
-      }
+      // Smart day validation: if current day is invalid for new month, let smart date correction handle it
+      // No need to reset to -1 since createSmartDate will clamp the day
     },
-    [day, year, minDate, maxDate]
+    [year]
   );
 
   const handleDayChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setDay(Number(e.target.value));
   }, []);
+
+  const hasInvalidFields =
+    (day === -1 && month !== -1 && year !== -1) ||
+    (month === -1 && day !== -1 && year !== -1) ||
+    (year === -1 && day !== -1 && month !== -1);
 
   const field: { day: JSX.Element; month: JSX.Element; year: JSX.Element } = useMemo(() => {
     return {
@@ -97,6 +144,8 @@ const SelectDatepicker = ({
           onChangeHandler={handleDayChange}
           selectOptions={dayOptions}
           ref={dayRef}
+          required={true}
+          invalid={hasError}
         />
       ),
       month: (
@@ -112,6 +161,8 @@ const SelectDatepicker = ({
           onChangeHandler={handleMonthChange}
           selectOptions={monthOptions}
           ref={monthRef}
+          required={true}
+          invalid={hasError}
         />
       ),
       year: (
@@ -127,6 +178,8 @@ const SelectDatepicker = ({
           onChangeHandler={handleYearChange}
           selectOptions={yearOptions}
           ref={yearRef}
+          required={true}
+          invalid={hasError}
         />
       ),
     };
@@ -168,29 +221,87 @@ const SelectDatepicker = ({
 
   useEffect(() => {
     if (year !== -1 && month !== -1 && day !== -1) {
-      const newDate = createSafeDate(year, month, day);
+      const newDate = createSmartDate(year, month, day);
       onDateChange(newDate);
     } else {
       onDateChange(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day, month, year]);
+  }, [day, month, year, onDateChange]);
+
+  // Determine the appropriate validation message
+  const getValidationMessage = () => {
+    if (!hasError) return null;
+
+    if (day === -1 && month === -1 && year === -1) {
+      return 'Please select a date';
+    }
+
+    const missingFields = [];
+    if (day === -1) missingFields.push(labels.dayLabel?.toLowerCase() || 'day');
+    if (month === -1) missingFields.push(labels.monthLabel?.toLowerCase() || 'month');
+    if (year === -1) missingFields.push(labels.yearLabel?.toLowerCase() || 'year');
+
+    if (missingFields.length === 1) {
+      return `Please select a ${missingFields[0]}`;
+    } else if (missingFields.length === 2) {
+      return `Please select a ${missingFields[0]} and ${missingFields[1]}`;
+    } else {
+      return `Please select all date fields`;
+    }
+  };
+
+  const validationMessage = getValidationMessage();
 
   return (
     <div
       {...args}
-      style={{ display: 'flex' }}
+      style={{ display: 'flex', flexDirection: 'column' }}
       id={id}
       className={combinedClassNames}
-      {...(hasError ? { 'aria-invalid': true } : null)}
+      role="group"
+      aria-labelledby={id ? `${id}-legend` : undefined}
+      aria-describedby={validationMessage ? `${id || baseId}-error` : undefined}
+      aria-invalid={hasError}
     >
-      {orderArray.map((key, i) => {
-        return (
-          <React.Fragment key={`${key}-${i}`}>
-            {field[key as 'day' | 'month' | 'year']}
-          </React.Fragment>
-        );
-      })}
+      {id && !hideLabels && (
+        <div
+          id={`${id}-legend`}
+          className={`${classPrefix}_legend`}
+          style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}
+        >
+          {labels.yearLabel && labels.monthLabel && labels.dayLabel
+            ? `Select ${labels.monthLabel}, ${labels.dayLabel}, and ${labels.yearLabel}`
+            : 'Select date'}
+        </div>
+      )}
+
+      <div style={{ display: 'flex', gap: '8px' }}>
+        {orderArray.map((key, i) => {
+          const fieldKey = key as 'day' | 'month' | 'year';
+          const elementId = selectIds[key];
+
+          // Clone the field element to add keyboard navigation
+          const enhancedField = React.cloneElement(field[fieldKey], {
+            id: key, // Keep the original ID for SelectRenderer
+            'data-select-id': elementId, // Add the full ID as a data attribute
+          });
+
+          return <React.Fragment key={`${key}-${i}`}>{enhancedField}</React.Fragment>;
+        })}
+      </div>
+
+      {validationMessage && (
+        <div
+          id={`${id || baseId}-error`}
+          className={`${classPrefix}_error-message`}
+          style={{ color: '#d73a49', fontSize: '14px', marginTop: '8px' }}
+          role="alert"
+          aria-live="polite"
+        >
+          {validationMessage}
+        </div>
+      )}
     </div>
   );
 };

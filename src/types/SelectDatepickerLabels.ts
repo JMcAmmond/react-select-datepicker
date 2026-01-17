@@ -1,24 +1,31 @@
 export type Months = {
-  1: string;
-  2: string;
-  3: string;
-  4: string;
-  5: string;
-  6: string;
-  7: string;
-  8: string;
-  9: string;
-  10: string;
-  11: string;
-  12: string;
+  readonly 1: string;
+  readonly 2: string;
+  readonly 3: string;
+  readonly 4: string;
+  readonly 5: string;
+  readonly 6: string;
+  readonly 7: string;
+  readonly 8: string;
+  readonly 9: string;
+  readonly 10: string;
+  readonly 11: string;
+  readonly 12: string;
 };
 
 export type SelectDatepickerLabels = {
-  yearLabel?: string;
-  monthLabel?: string;
-  dayLabel?: string;
-  yearPlaceholder?: string;
-  monthPlaceholder?: string;
-  dayPlaceholder?: string;
-  months?: Months;
+  /** Label for the year select field */
+  readonly yearLabel?: string;
+  /** Label for the month select field */
+  readonly monthLabel?: string;
+  /** Label for the day select field */
+  readonly dayLabel?: string;
+  /** Placeholder for the year select field */
+  readonly yearPlaceholder?: string;
+  /** Placeholder for the month select field */
+  readonly monthPlaceholder?: string;
+  /** Placeholder for the day select field */
+  readonly dayPlaceholder?: string;
+  /** Custom month names (1-12 indexed) */
+  readonly months?: Months;
 };

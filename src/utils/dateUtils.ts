@@ -16,6 +16,22 @@ export const createSafeDate = (year: number, month: number, day: number): Date =
 };
 
 /**
+ * Creates a Date object with smart date correction for invalid dates
+ * If the day is too large for the month, it clamps to the last day of the month
+ * @param year Full year (e.g., 2024)
+ * @param month Month number (1-12)
+ * @param day Day number (1-31)
+ * @returns Date object in local timezone with corrected day if needed
+ */
+export const createSmartDate = (year: number, month: number, day: number): Date => {
+  const daysInMonth = getDaysInMonth(year, month);
+  const correctedDay = Math.min(day, daysInMonth);
+
+  // Note: Date constructor expects month as 0-11, so we subtract 1
+  return new Date(year, month - 1, correctedDay, 0, 0, 0, 0);
+};
+
+/**
  * Creates a Date object for the first day of a given month/year
  * @param year Full year (e.g., 2024)
  * @param month Month number (1-12)
