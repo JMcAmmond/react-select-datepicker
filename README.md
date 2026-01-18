@@ -41,6 +41,134 @@ export const App = () => {
 };
 ```
 
+## API
+
+### Props
+
+- `value?: Date | null` — Controlled value (preferred).
+- `onChange?: (date: Date | null) => void` — Change handler (preferred).
+- `selectedDate?: Date | null` — Legacy value prop (still supported).
+- `onDateChange?: (date: Date | null) => void` — Legacy change handler (still supported).
+- `minDate?: Date` / `maxDate?: Date` — Range constraints.
+- `order?: 'month/day/year' | 'day/month/year' | ...` — Order of selects.
+- `reverseYears?: boolean` — Reverse year order.
+- `hideLabels?: boolean` — Hide per-field labels.
+- `disabled?: boolean` — Disable all selects.
+- `hasError?: boolean` — Error state (shows validation message).
+- `labels?: { ... }` — Label and placeholder overrides.
+
+### labels
+
+- `groupLabel?: string` — Single label for the entire date picker group.
+- `monthLabel`, `dayLabel`, `yearLabel` — Field labels.
+- `monthPlaceholder`, `dayPlaceholder`, `yearPlaceholder` — Field placeholders.
+- `months?: { 1: string; ... 12: string }` — Custom month names.
+
+## Examples
+
+### Group label
+
+```tsx
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  labels={{ groupLabel: 'Select your date' }}
+/>
+```
+
+### Date range
+
+```tsx
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  minDate={new Date(2020, 0, 1)}
+  maxDate={new Date(2025, 11, 31)}
+/>
+```
+
+### Custom order + reverse years
+
+```tsx
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  order="day/month/year"
+  reverseYears
+/>
+```
+
+### Custom labels and months
+
+```tsx
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  labels={{
+    groupLabel: 'Travel date',
+    monthLabel: 'Mes',
+    dayLabel: 'Día',
+    yearLabel: 'Año',
+    monthPlaceholder: 'Selecciona mes',
+    dayPlaceholder: 'Selecciona día',
+    yearPlaceholder: 'Selecciona año',
+    months: {
+      1: 'Enero',
+      2: 'Febrero',
+      3: 'Marzo',
+      4: 'Abril',
+      5: 'Mayo',
+      6: 'Junio',
+      7: 'Julio',
+      8: 'Agosto',
+      9: 'Septiembre',
+      10: 'Octubre',
+      11: 'Noviembre',
+      12: 'Diciembre',
+    },
+  }}
+/>
+```
+
+### Error state
+
+```tsx
+<SelectDatepicker value={value} onChange={onChange} hasError />
+```
+
+### Theming (CSS variables)
+
+```tsx
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  className="my-datepicker-theme"
+/>
+```
+
+```css
+.my-datepicker-theme {
+  --rsd-gap: 12px;
+  --rsd-select-padding: 10px 12px;
+  --rsd-select-border: 1px solid #7c3aed;
+  --rsd-select-border-radius: 10px;
+  --rsd-select-font-size: 15px;
+  --rsd-error-color: #b42318;
+}
+```
+
+### Error boundary
+
+```tsx
+import { SelectDatepickerErrorBoundary } from 'react-select-datepicker';
+
+<SelectDatepickerErrorBoundary
+  renderFallback={(error) => <div role="alert">Error: {error.message}</div>}
+>
+  <SelectDatepicker value={value} onChange={onChange} />
+</SelectDatepickerErrorBoundary>
+```
+
 ## License
 
 MIT © [JMcAmmond](https://github.com/JMcAmmond)

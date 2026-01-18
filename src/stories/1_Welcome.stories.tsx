@@ -163,17 +163,93 @@ import { SelectDatepicker } from 'react-select-datepicker';
 export const App = () => {
   const [value, setValue] = useState<Date | null>();
 
-    const onChange = useCallback((date: Date | null) => {
+  const onChange = useCallback((date: Date | null) => {
     setValue(date);
   }, []);
 
   return (
     <SelectDatepicker
-        value={value}
-        onChange={onChange}
+      value={value}
+      onChange={onChange}
+      labels={{
+        groupLabel: 'Select your date',
+      }}
     />
   );
 };`}</code>
+        </pre>
+
+        <h2>API</h2>
+        <pre>
+          <code>{`Props:
+- value?: Date | null (preferred)
+- onChange?: (date: Date | null) => void (preferred)
+- selectedDate?: Date | null (legacy)
+- onDateChange?: (date: Date | null) => void (legacy)
+- minDate?: Date / maxDate?: Date
+- order?: 'month/day/year' | 'day/month/year' | ...
+- reverseYears?: boolean
+- hideLabels?: boolean
+- disabled?: boolean
+- hasError?: boolean
+- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months? }
+`}</code>
+        </pre>
+
+        <h2>Examples</h2>
+        <pre>
+          <code>{`// Date range
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  minDate={new Date(2020, 0, 1)}
+  maxDate={new Date(2025, 11, 31)}
+/>
+
+// Custom order + reverse years
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  order="day/month/year"
+  reverseYears
+/>
+
+// Custom labels and months
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  labels={{
+    groupLabel: 'Travel date',
+    monthLabel: 'Mes',
+    dayLabel: 'Día',
+    yearLabel: 'Año',
+    monthPlaceholder: 'Selecciona mes',
+    dayPlaceholder: 'Selecciona día',
+    yearPlaceholder: 'Selecciona año',
+    months: {
+      1: 'Enero',
+      2: 'Febrero',
+      3: 'Marzo',
+      4: 'Abril',
+      5: 'Mayo',
+      6: 'Junio',
+      7: 'Julio',
+      8: 'Agosto',
+      9: 'Septiembre',
+      10: 'Octubre',
+      11: 'Noviembre',
+      12: 'Diciembre',
+    },
+  }}
+/>
+
+// Error boundary
+<SelectDatepickerErrorBoundary
+  renderFallback={(error) => <div role="alert">Error: {error.message}</div>}
+>
+  <SelectDatepicker value={value} onChange={onChange} />
+</SelectDatepickerErrorBoundary>
+`}</code>
         </pre>
       </section>
     </div>
