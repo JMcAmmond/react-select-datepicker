@@ -1,4 +1,4 @@
-import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kIdD.js";import{S as l}from"./SelectDatepicker-DLRICr8f.js";import"./preload-helper-PPVm8Dsz.js";class y extends e.Component{constructor(){super(...arguments),this.state={hasError:!1}}static getDerivedStateFromError(a){return{hasError:!0,error:a}}componentDidCatch(a){}render(){const{hasError:a,error:n}=this.state,{children:r,fallback:R,renderFallback:f}=this.props;return a?f&&n?f(n):R||s.jsx("div",{role:"alert",style:{padding:"12px"},children:"Something went wrong while rendering the date picker."}):r}}y.__docgenInfo={description:"",methods:[],displayName:"SelectDatepickerErrorBoundary",props:{children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""},fallback:{required:!1,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""},renderFallback:{required:!1,tsType:{name:"signature",type:"function",raw:"(error: Error) => React.ReactNode",signature:{arguments:[{type:{name:"Error"},name:"error"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}}},description:""}}};const L={title:"SelectDatepicker",component:l,parameters:{layout:"centered"}},c={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement(l,{selectedDate:t,onDateChange:n})}},d={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"With Date Range"),e.createElement(l,{selectedDate:t,onDateChange:n,minDate:new Date("2023-01-01"),maxDate:new Date("2025-12-31")})])}},o={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"With Custom Labels"),e.createElement(l,{selectedDate:t,onDateChange:n,labels:{groupLabel:"Select your travel date",yearLabel:"Year",monthLabel:"Month",dayLabel:"Day",yearPlaceholder:"Select Year",monthPlaceholder:"Select Month",dayPlaceholder:"Select Day"}})])}},i={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Different Order (Day/Month/Year)"),e.createElement(l,{selectedDate:t,onDateChange:n,order:"day/month/year"})])}},m={render:()=>e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Disabled State"),e.createElement(l,{selectedDate:new Date,onDateChange:()=>{},disabled:!0})])},p={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Error State"),e.createElement(l,{id:"error-state",selectedDate:t,onDateChange:n,hasError:!0})])}},h={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Hidden Labels"),e.createElement(l,{id:"hidden-labels",selectedDate:t,onDateChange:n,hideLabels:!0})])}},u={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Reverse Years"),e.createElement(l,{id:"reverse-years",selectedDate:t,onDateChange:n,reverseYears:!0})])}},g={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"420px"}},[e.createElement("h3",null,"Custom Month Labels"),e.createElement(l,{id:"custom-months",selectedDate:t,onDateChange:n,labels:{monthLabel:"Mes",dayLabel:"Día",yearLabel:"Año",monthPlaceholder:"Selecciona mes",dayPlaceholder:"Selecciona día",yearPlaceholder:"Selecciona año",months:{1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Septiembre",10:"Octubre",11:"Noviembre",12:"Diciembre"}}})])}},D={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"440px"}},[e.createElement("h3",null,"Smart Date Correction"),e.createElement("p",{style:{marginBottom:"12px"}},"Try selecting Jan 31, then switch month to February."),e.createElement(l,{id:"smart-correction",selectedDate:t,onDateChange:n}),t&&e.createElement("div",{style:{marginTop:"10px",padding:"10px",background:"#f6f8fa"}},[e.createElement("strong",null,"Selected: "),e.createElement("span",null,t.toDateString())])])}},x={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"460px"}},[e.createElement("h3",null,"Range Limits"),e.createElement("p",{style:{marginBottom:"12px"}},"Range: 2020-01-01 to 2025-12-31"),e.createElement(l,{id:"range-limits",selectedDate:t,onDateChange:n,minDate:new Date(2020,0,1),maxDate:new Date(2025,11,31)}),t&&e.createElement("div",{style:{marginTop:"10px",padding:"10px",background:"#f6f8fa"}},[e.createElement("strong",null,"Selected: "),e.createElement("span",null,t.toDateString())])])}},b={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"420px"}},[e.createElement("h3",null,"Invalid Order Fallback"),e.createElement("p",{style:{marginBottom:"12px"}},"Passing an invalid order falls back to month/day/year."),e.createElement(l,{id:"invalid-order",selectedDate:t,onDateChange:n,order:"month-year-day"})])}},S={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"880px"}},[e.createElement("h3",null,"Theming Overrides (CSS Vars)"),e.createElement("p",{style:{marginBottom:"12px"}},"These styles are applied via CSS custom properties on the root element."),e.createElement(l,{id:"theme-overrides",selectedDate:t,onDateChange:n,className:"rsd-theme-sunset"}),e.createElement("style",null,`.rsd-theme-sunset {
+import{j as s}from"./jsx-runtime-x38wkO75.js";import{R as e}from"./iframe-8cb0yopR.js";import{S as l}from"./SelectDatepicker-CLklMcFy.js";import"./preload-helper-PPVm8Dsz.js";class R extends e.Component{constructor(){super(...arguments),this.state={hasError:!1}}static getDerivedStateFromError(a){return{hasError:!0,error:a}}componentDidCatch(a){}render(){const{hasError:a,error:n}=this.state,{children:r,fallback:E,renderFallback:f}=this.props;return a?f&&n?f(n):E||s.jsx("div",{role:"alert",style:{padding:"12px"},children:"Something went wrong while rendering the date picker."}):r}}R.__docgenInfo={description:"",methods:[],displayName:"SelectDatepickerErrorBoundary",props:{children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""},fallback:{required:!1,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""},renderFallback:{required:!1,tsType:{name:"signature",type:"function",raw:"(error: Error) => React.ReactNode",signature:{arguments:[{type:{name:"Error"},name:"error"}],return:{name:"ReactReactNode",raw:"React.ReactNode"}}},description:""}}};const W={title:"SelectDatepicker",component:l,parameters:{layout:"centered"}},c={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement(l,{selectedDate:t,onDateChange:n})}},d={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"With Date Range"),e.createElement(l,{selectedDate:t,onDateChange:n,minDate:new Date("2023-01-01"),maxDate:new Date("2025-12-31")})])}},o={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(E=>{a(E)},[]),r={1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Septiembre",10:"Octubre",11:"Noviembre",12:"Diciembre"};return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Custom Labels + Months (Spanish)"),e.createElement(l,{selectedDate:t,onDateChange:n,labels:{groupLabel:"Selecciona tu fecha de viaje",yearLabel:"Año",monthLabel:"Mes",dayLabel:"Día",yearPlaceholder:"Selecciona año",monthPlaceholder:"Selecciona mes",dayPlaceholder:"Selecciona día",months:r},order:"day/month/year"})])}},i={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Different Order (Day/Month/Year)"),e.createElement(l,{selectedDate:t,onDateChange:n,order:"day/month/year"})])}},m={render:()=>e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Disabled State"),e.createElement(l,{selectedDate:new Date,onDateChange:()=>{},disabled:!0})])},p={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Error State"),e.createElement(l,{id:"error-state",selectedDate:t,onDateChange:n,hasError:!0})])}},h={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Hidden Labels"),e.createElement(l,{id:"hidden-labels",selectedDate:t,onDateChange:n,hideLabels:!0})])}},u={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"400px"}},[e.createElement("h3",null,"Reverse Years"),e.createElement(l,{id:"reverse-years",selectedDate:t,onDateChange:n,reverseYears:!0})])}},g={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"440px"}},[e.createElement("h3",null,"Smart Date Correction"),e.createElement("p",{style:{marginBottom:"12px"}},"Try selecting Jan 31, then switch month to February."),e.createElement(l,{id:"smart-correction",selectedDate:t,onDateChange:n}),t&&e.createElement("div",{style:{marginTop:"10px",padding:"10px",background:"#f6f8fa"}},[e.createElement("strong",null,"Selected: "),e.createElement("span",null,t.toDateString())])])}},x={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"460px"}},[e.createElement("h3",null,"Range Limits"),e.createElement("p",{style:{marginBottom:"12px"}},"Range: 2020-01-01 to 2025-12-31"),e.createElement(l,{id:"range-limits",selectedDate:t,onDateChange:n,minDate:new Date(2020,0,1),maxDate:new Date(2025,11,31)}),t&&e.createElement("div",{style:{marginTop:"10px",padding:"10px",background:"#f6f8fa"}},[e.createElement("strong",null,"Selected: "),e.createElement("span",null,t.toDateString())])])}},D={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"420px"}},[e.createElement("h3",null,"Invalid Order Fallback"),e.createElement("p",{style:{marginBottom:"12px"}},"Passing an invalid order falls back to month/day/year."),e.createElement(l,{id:"invalid-order",selectedDate:t,onDateChange:n,order:"month-year-day"})])}},S={render:()=>{const[t,a]=e.useState(null),n=e.useCallback(r=>{a(r)},[]);return e.createElement("div",{style:{padding:"20px",maxWidth:"880px"}},[e.createElement("h3",null,"Theming Overrides (CSS Vars)"),e.createElement("p",{style:{marginBottom:"12px"}},"These styles are applied via CSS custom properties on the root element."),e.createElement(l,{id:"theme-overrides",selectedDate:t,onDateChange:n,className:"rsd-theme-sunset"}),e.createElement("style",null,`.rsd-theme-sunset {
             --rsd-gap: 18px;
             --rsd-legend-font-size: 20px;
             --rsd-legend-font-weight: 800;
@@ -46,7 +46,7 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
             background: #fff1f2;
             padding: 8px 12px;
             border-radius: 10px;
-          }`)])}},C=()=>{throw new Error("Intentional render error")},E={render:()=>s.jsxs("div",{style:{padding:"20px",maxWidth:"480px"},children:[s.jsx("h3",{children:"Error Boundary"}),s.jsx("p",{style:{marginBottom:"12px"},children:"This example intentionally throws to demonstrate the fallback UI."}),s.jsx(y,{renderFallback:t=>s.jsxs("div",{role:"alert",style:{padding:"12px",borderRadius:"8px",background:"#fff1f2",color:"#9f1239"},children:["Error: ",t.message]}),children:s.jsx(C,{})})]})};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+          }`)])}},y=()=>{throw new Error("Intentional render error")},b={render:()=>s.jsxs("div",{style:{padding:"20px",maxWidth:"480px"},children:[s.jsx("h3",{children:"Error Boundary"}),s.jsx("p",{style:{marginBottom:"12px"},children:"This example intentionally throws to demonstrate the fallback UI."}),s.jsx(R,{renderFallback:t=>s.jsxs("div",{role:"alert",style:{padding:"12px",borderRadius:"8px",background:"#fff1f2",color:"#9f1239"},children:["Error: ",t.message]}),children:s.jsx(y,{})})]})};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
   render: () => {
     const [selected, setSelected] = React.useState(null);
     const handleDateChange = React.useCallback(date => {
@@ -81,23 +81,39 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
     const handleDateChange = React.useCallback(date => {
       setSelected(date);
     }, []);
+    const spanishMonths = {
+      1: 'Enero',
+      2: 'Febrero',
+      3: 'Marzo',
+      4: 'Abril',
+      5: 'Mayo',
+      6: 'Junio',
+      7: 'Julio',
+      8: 'Agosto',
+      9: 'Septiembre',
+      10: 'Octubre',
+      11: 'Noviembre',
+      12: 'Diciembre'
+    } as const;
     return React.createElement('div', {
       style: {
         padding: '20px',
         maxWidth: '400px'
       }
-    }, [React.createElement('h3', null, 'With Custom Labels'), React.createElement(SelectDatepicker, {
+    }, [React.createElement('h3', null, 'Custom Labels + Months (Spanish)'), React.createElement(SelectDatepicker, {
       selectedDate: selected,
       onDateChange: handleDateChange,
       labels: {
-        groupLabel: 'Select your travel date',
-        yearLabel: 'Year',
-        monthLabel: 'Month',
-        dayLabel: 'Day',
-        yearPlaceholder: 'Select Year',
-        monthPlaceholder: 'Select Month',
-        dayPlaceholder: 'Select Day'
-      }
+        groupLabel: 'Selecciona tu fecha de viaje',
+        yearLabel: 'Año',
+        monthLabel: 'Mes',
+        dayLabel: 'Día',
+        yearPlaceholder: 'Selecciona año',
+        monthPlaceholder: 'Selecciona mes',
+        dayPlaceholder: 'Selecciona día',
+        months: spanishMonths
+      },
+      order: 'day/month/year'
     })]);
   }
 }`,...o.parameters?.docs?.source}}};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
@@ -193,45 +209,6 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
     return React.createElement('div', {
       style: {
         padding: '20px',
-        maxWidth: '420px'
-      }
-    }, [React.createElement('h3', null, 'Custom Month Labels'), React.createElement(SelectDatepicker, {
-      id: 'custom-months',
-      selectedDate: selected,
-      onDateChange: handleDateChange,
-      labels: {
-        monthLabel: 'Mes',
-        dayLabel: 'Día',
-        yearLabel: 'Año',
-        monthPlaceholder: 'Selecciona mes',
-        dayPlaceholder: 'Selecciona día',
-        yearPlaceholder: 'Selecciona año',
-        months: {
-          1: 'Enero',
-          2: 'Febrero',
-          3: 'Marzo',
-          4: 'Abril',
-          5: 'Mayo',
-          6: 'Junio',
-          7: 'Julio',
-          8: 'Agosto',
-          9: 'Septiembre',
-          10: 'Octubre',
-          11: 'Noviembre',
-          12: 'Diciembre'
-        }
-      }
-    })]);
-  }
-}`,...g.parameters?.docs?.source}}};D.parameters={...D.parameters,docs:{...D.parameters?.docs,source:{originalSource:`{
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
-    const handleDateChange = React.useCallback((date: Date | null) => {
-      setSelected(date);
-    }, []);
-    return React.createElement('div', {
-      style: {
-        padding: '20px',
         maxWidth: '440px'
       }
     }, [React.createElement('h3', null, 'Smart Date Correction'), React.createElement('p', {
@@ -250,7 +227,7 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
       }
     }, [React.createElement('strong', null, 'Selected: '), React.createElement('span', null, selected.toDateString())])]);
   }
-}`,...D.parameters?.docs?.source}}};x.parameters={...x.parameters,docs:{...x.parameters?.docs,source:{originalSource:`{
+}`,...g.parameters?.docs?.source}}};x.parameters={...x.parameters,docs:{...x.parameters?.docs,source:{originalSource:`{
   render: () => {
     const [selected, setSelected] = React.useState<Date | null>(null);
     const handleDateChange = React.useCallback((date: Date | null) => {
@@ -279,7 +256,7 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
       }
     }, [React.createElement('strong', null, 'Selected: '), React.createElement('span', null, selected.toDateString())])]);
   }
-}`,...x.parameters?.docs?.source}}};b.parameters={...b.parameters,docs:{...b.parameters?.docs,source:{originalSource:`{
+}`,...x.parameters?.docs?.source}}};D.parameters={...D.parameters,docs:{...D.parameters?.docs,source:{originalSource:`{
   render: () => {
     const [selected, setSelected] = React.useState<Date | null>(null);
     const handleDateChange = React.useCallback((date: Date | null) => {
@@ -301,7 +278,7 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
       order: 'month-year-day' as unknown as SelectDatepickerOrder
     })]);
   }
-}`,...b.parameters?.docs?.source}}};S.parameters={...S.parameters,docs:{...S.parameters?.docs,source:{originalSource:`{
+}`,...D.parameters?.docs?.source}}};S.parameters={...S.parameters,docs:{...S.parameters?.docs,source:{originalSource:`{
   render: () => {
     const [selected, setSelected] = React.useState<Date | null>(null);
     const handleDateChange = React.useCallback((date: Date | null) => {
@@ -371,7 +348,7 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
             border-radius: 10px;
           }\`)]);
   }
-}`,...S.parameters?.docs?.source}}};E.parameters={...E.parameters,docs:{...E.parameters?.docs,source:{originalSource:`{
+}`,...S.parameters?.docs?.source}}};b.parameters={...b.parameters,docs:{...b.parameters?.docs,source:{originalSource:`{
   render: () => {
     return <div style={{
       padding: '20px',
@@ -395,4 +372,4 @@ import{j as s}from"./jsx-runtime-DM0iHAxA.js";import{R as e}from"./iframe-C3P2kI
         </SelectDatepickerErrorBoundary>\r
       </div>;
   }
-}`,...E.parameters?.docs?.source}}};const _=["Default","WithDateRange","WithCustomLabels","DifferentOrder","Disabled","WithErrorState","WithHiddenLabels","WithReverseYears","WithCustomMonths","WithSmartDateCorrection","WithRangeLimits","WithInvalidOrderFallback","WithThemingOverrides","WithErrorBoundary"];export{c as Default,i as DifferentOrder,m as Disabled,o as WithCustomLabels,g as WithCustomMonths,d as WithDateRange,E as WithErrorBoundary,p as WithErrorState,h as WithHiddenLabels,b as WithInvalidOrderFallback,x as WithRangeLimits,u as WithReverseYears,D as WithSmartDateCorrection,S as WithThemingOverrides,_ as __namedExportsOrder,L as default};
+}`,...b.parameters?.docs?.source}}};const L=["Default","WithDateRange","WithCustomLabels","DifferentOrder","Disabled","WithErrorState","WithHiddenLabels","WithReverseYears","WithSmartDateCorrection","WithRangeLimits","WithInvalidOrderFallback","WithThemingOverrides","WithErrorBoundary"];export{c as Default,i as DifferentOrder,m as Disabled,o as WithCustomLabels,d as WithDateRange,b as WithErrorBoundary,p as WithErrorState,h as WithHiddenLabels,D as WithInvalidOrderFallback,x as WithRangeLimits,u as WithReverseYears,g as WithSmartDateCorrection,S as WithThemingOverrides,L as __namedExportsOrder,W as default};
