@@ -3,6 +3,21 @@ import { SelectDatepicker } from '../components/SelectDatepicker';
 import { SelectDatepickerErrorBoundary } from '../components/SelectDatepickerErrorBoundary';
 import type { SelectDatepickerOrder } from '../types/SelectDatepickerOrder';
 
+const withKeys = (nodes: React.ReactNode[]) =>
+  nodes.map((node, index) => (React.isValidElement(node) ? React.cloneElement(node, { key: node.key ?? index }) : node));
+
+const renderSelectedDate = (selected: Date | null) =>
+  selected
+    ? React.createElement(
+        'div',
+        { style: { marginTop: '10px', padding: '10px', background: '#f6f8fa' } },
+        withKeys([
+          React.createElement('strong', null, 'Selected: '),
+          React.createElement('span', null, selected.toDateString()),
+        ])
+      )
+    : null;
+
 export default {
   title: 'SelectDatepicker',
   component: SelectDatepicker,
@@ -18,10 +33,17 @@ export const Default = {
       setSelected(date);
     }, []);
 
-    return React.createElement(SelectDatepicker, {
-      selectedDate: selected,
-      onDateChange: handleDateChange,
-    });
+    return React.createElement(
+      'div',
+      { style: { padding: '20px', maxWidth: '400px' } },
+      withKeys([
+        React.createElement(SelectDatepicker, {
+          selectedDate: selected,
+          onDateChange: handleDateChange,
+        }),
+        renderSelectedDate(selected),
+      ])
+    );
   },
 };
 
@@ -37,15 +59,21 @@ export const WithDateRange = {
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'With Date Range'),
+        React.createElement(
+          'p',
+          { style: { marginBottom: '12px', color: '#555' } },
+          'Allowed range: Jan 1, 2023 – Dec 31, 2025'
+        ),
         React.createElement(SelectDatepicker, {
           selectedDate: selected,
           onDateChange: handleDateChange,
-          minDate: new Date('2023-01-01'),
-          maxDate: new Date('2025-12-31'),
+          minDate: new Date(2023, 0, 1),
+          maxDate: new Date(2025, 11, 31),
         }),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -77,7 +105,7 @@ export const WithCustomLabels = {
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Custom Labels + Months (Spanish)'),
         React.createElement(SelectDatepicker, {
           selectedDate: selected,
@@ -94,7 +122,13 @@ export const WithCustomLabels = {
           },
           order: 'day/month/year',
         }),
-      ]
+        renderSelectedDate(selected),
+        React.createElement(
+          'div',
+          { style: { marginTop: '10px', color: '#555', fontSize: '13px' } },
+          Object.values(spanishMonths).join(' · ')
+        ),
+      ])
     );
   },
 };
@@ -111,33 +145,37 @@ export const DifferentOrder = {
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Different Order (Day/Month/Year)'),
         React.createElement(SelectDatepicker, {
           selectedDate: selected,
           onDateChange: handleDateChange,
           order: 'day/month/year',
         }),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
 
 export const Disabled = {
   render: () => {
+    const selectedDate = new Date();
+
     return React.createElement(
       'div',
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Disabled State'),
         React.createElement(SelectDatepicker, {
-          selectedDate: new Date(),
+          selectedDate: selectedDate,
           onDateChange: () => {},
           disabled: true,
         }),
-      ]
+        renderSelectedDate(selectedDate),
+      ])
     );
   },
 };
@@ -154,7 +192,7 @@ export const WithErrorState = {
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Error State'),
         React.createElement(SelectDatepicker, {
           id: 'error-state',
@@ -162,7 +200,8 @@ export const WithErrorState = {
           onDateChange: handleDateChange,
           hasError: true,
         }),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -179,7 +218,7 @@ export const WithHiddenLabels = {
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Hidden Labels'),
         React.createElement(SelectDatepicker, {
           id: 'hidden-labels',
@@ -187,7 +226,8 @@ export const WithHiddenLabels = {
           onDateChange: handleDateChange,
           hideLabels: true,
         }),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -204,7 +244,7 @@ export const WithReverseYears = {
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Reverse Years'),
         React.createElement(SelectDatepicker, {
           id: 'reverse-years',
@@ -212,7 +252,8 @@ export const WithReverseYears = {
           onDateChange: handleDateChange,
           reverseYears: true,
         }),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -230,7 +271,7 @@ export const WithSmartDateCorrection = {
       {
         style: { padding: '20px', maxWidth: '440px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Smart Date Correction'),
         React.createElement(
           'p',
@@ -242,16 +283,8 @@ export const WithSmartDateCorrection = {
           selectedDate: selected,
           onDateChange: handleDateChange,
         }),
-        selected &&
-          React.createElement(
-            'div',
-            { style: { marginTop: '10px', padding: '10px', background: '#f6f8fa' } },
-            [
-              React.createElement('strong', null, 'Selected: '),
-              React.createElement('span', null, selected.toDateString()),
-            ]
-          ),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -268,7 +301,7 @@ export const WithRangeLimits = {
       {
         style: { padding: '20px', maxWidth: '460px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Range Limits'),
         React.createElement(
           'p',
@@ -282,16 +315,8 @@ export const WithRangeLimits = {
           minDate: new Date(2020, 0, 1),
           maxDate: new Date(2025, 11, 31),
         }),
-        selected &&
-          React.createElement(
-            'div',
-            { style: { marginTop: '10px', padding: '10px', background: '#f6f8fa' } },
-            [
-              React.createElement('strong', null, 'Selected: '),
-              React.createElement('span', null, selected.toDateString()),
-            ]
-          ),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -308,7 +333,7 @@ export const WithInvalidOrderFallback = {
       {
         style: { padding: '20px', maxWidth: '420px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Invalid Order Fallback'),
         React.createElement(
           'p',
@@ -321,7 +346,8 @@ export const WithInvalidOrderFallback = {
           onDateChange: handleDateChange,
           order: 'month-year-day' as unknown as SelectDatepickerOrder,
         }),
-      ]
+        renderSelectedDate(selected),
+      ])
     );
   },
 };
@@ -338,7 +364,7 @@ export const WithThemingOverrides = {
       {
         style: { padding: '20px', maxWidth: '880px' },
       },
-      [
+      withKeys([
         React.createElement('h3', null, 'Theming Overrides (CSS Vars)'),
         React.createElement(
           'p',
@@ -351,6 +377,7 @@ export const WithThemingOverrides = {
           onDateChange: handleDateChange,
           className: 'rsd-theme-sunset',
         }),
+        renderSelectedDate(selected),
         React.createElement(
           'style',
           null,
@@ -404,7 +431,7 @@ export const WithThemingOverrides = {
             border-radius: 10px;
           }`
         ),
-      ]
+      ])
     );
   },
 };

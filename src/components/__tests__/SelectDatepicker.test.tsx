@@ -51,11 +51,11 @@ describe('SelectDatepicker Component', () => {
 
     // Select month
     await fireEvent.change(selects[0], { target: { value: '6' } });
-    expect(onDateChange).toHaveBeenLastCalledWith(null);
+    expect(onDateChange).not.toHaveBeenCalled();
 
     // Select day
     await fireEvent.change(selects[1], { target: { value: '15' } });
-    expect(onDateChange).toHaveBeenLastCalledWith(null);
+    expect(onDateChange).not.toHaveBeenCalled();
 
     // Select year
     await fireEvent.change(selects[2], { target: { value: '2024' } });

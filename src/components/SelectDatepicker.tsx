@@ -37,6 +37,8 @@ const SelectDatepicker = ({
   const [year, setYear] = useState(-1);
   const [month, setMonth] = useState(-1);
   const [day, setDay] = useState(-1);
+  const isSyncingFromValueRef = useRef(false);
+  const lastResolvedTimeRef = useRef<number | null | undefined>(undefined);
 
   const normalizedOrder = useMemo(
     () => (order && isValidOrder(order) ? order : 'month/day/year'),
@@ -292,17 +294,24 @@ const SelectDatepicker = ({
   );
 
   useEffect(() => {
-    if (
-      resolvedSelectedDate !== undefined &&
-      resolvedSelectedDate !== null &&
-      isDate(resolvedSelectedDate) &&
-      isValidDate(resolvedSelectedDate)
-    ) {
+    const nextTime =
+      resolvedSelectedDate && isDate(resolvedSelectedDate) && isValidDate(resolvedSelectedDate)
+        ? resolvedSelectedDate.getTime()
+        : null;
+
+    if (lastResolvedTimeRef.current === nextTime) {
+      return;
+    }
+
+    lastResolvedTimeRef.current = nextTime;
+
+    if (nextTime !== null && resolvedSelectedDate) {
+      isSyncingFromValueRef.current = true;
       setDay(Number(resolvedSelectedDate.getDate()));
       setMonth(Number(resolvedSelectedDate.getMonth() + 1));
       setYear(Number(resolvedSelectedDate.getFullYear()));
     } else {
-      // Reset to invalid state if selectedDate is invalid
+      isSyncingFromValueRef.current = true;
       setDay(-1);
       setMonth(-1);
       setYear(-1);
@@ -310,17 +319,39 @@ const SelectDatepicker = ({
   }, [resolvedSelectedDate]);
 
   useEffect(() => {
+    if (isSyncingFromValueRef.current) {
+      const isSyncedValue =
+        resolvedSelectedDate &&
+        isDate(resolvedSelectedDate) &&
+        isValidDate(resolvedSelectedDate)
+          ? resolvedSelectedDate.getFullYear() === year &&
+            resolvedSelectedDate.getMonth() + 1 === month &&
+            resolvedSelectedDate.getDate() === day
+          : day === -1 && month === -1 && year === -1;
+
+      isSyncingFromValueRef.current = false;
+
+      if (isSyncedValue) {
+        return;
+      }
+    }
+
     if (year !== -1 && month !== -1 && day !== -1) {
       const newDate = createSmartDate(year, month, day);
+      const resolvedTime =
+        resolvedSelectedDate && isDate(resolvedSelectedDate) && isValidDate(resolvedSelectedDate)
+          ? resolvedSelectedDate.getTime()
+          : null;
       if (isDateInRange(newDate, effectiveMinDate, effectiveMaxDate)) {
-        resolvedOnChange?.(newDate);
-      } else {
+        const newTime = newDate.getTime();
+        if (resolvedTime !== newTime) {
+          resolvedOnChange?.(newDate);
+        }
+      } else if (resolvedTime !== null) {
         resolvedOnChange?.(null);
       }
-    } else {
-      resolvedOnChange?.(null);
     }
-  }, [day, month, year, resolvedOnChange, effectiveMinDate, effectiveMaxDate]);
+  }, [day, month, year, resolvedOnChange, effectiveMinDate, effectiveMaxDate, resolvedSelectedDate]);
 
   // Memoize validation message to avoid recalculation
   const validationMessage = useMemo(() => {
@@ -334,6 +365,10 @@ const SelectDatepicker = ({
     if (day === -1) missingFields.push(labels.dayLabel?.toLowerCase() || 'day');
     if (month === -1) missingFields.push(labels.monthLabel?.toLowerCase() || 'month');
     if (year === -1) missingFields.push(labels.yearLabel?.toLowerCase() || 'year');
+
+    if (missingFields.length === 0) {
+      return null;
+    }
 
     if (missingFields.length === 1) {
       return `Please select a ${missingFields[0]}`;
