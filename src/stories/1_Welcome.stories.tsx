@@ -16,6 +16,7 @@ export const Welcome = {
           __html: `
           * {
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           }
           
           .center { 
@@ -52,7 +53,6 @@ export const Welcome = {
           }
 
           .demo .rsd-theme-sunset {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --rsd-gap: 12px;
             --rsd-legend-font-size: 18px;
             --rsd-legend-font-weight: 700;

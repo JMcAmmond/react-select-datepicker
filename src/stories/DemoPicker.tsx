@@ -10,11 +10,15 @@ const DemoPickerComponent = () => {
   }, []);
 
   return (
-    <SelectDatepicker
-      selectedDate={value}
-      onDateChange={onDateChange}
-      className="rsd-theme-sunset"
-    />
+    <>
+      <label>Select a date:</label>
+      <SelectDatepicker
+        selectedDate={value}
+        onDateChange={onDateChange}
+        className="rsd-theme-sunset"
+        hideLabels
+      />
+    </>
   );
 };
 
