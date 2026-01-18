@@ -10,10 +10,14 @@ export interface ISelectDatepicker {
   minDate?: Date;
   /** Maximum selectable date */
   maxDate?: Date;
-  /** Currently selected date */
+  /** Currently selected date (deprecated: use value) */
   selectedDate?: Date | null;
-  /** Callback function called when date changes */
-  onDateChange: (date: Date | null) => void;
+  /** Callback function called when date changes (deprecated: use onChange) */
+  onDateChange?: (date: Date | null) => void;
+  /** Controlled value (preferred) */
+  value?: Date | null;
+  /** Change handler (preferred) */
+  onChange?: (date: Date | null) => void;
   /** Custom labels for the date picker */
   labels?: Partial<SelectDatepickerLabels>;
   /** Whether the date picker is disabled */

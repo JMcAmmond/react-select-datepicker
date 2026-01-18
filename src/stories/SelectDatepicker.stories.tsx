@@ -1,5 +1,6 @@
 import React from 'react';
 import { SelectDatepicker } from '../components/SelectDatepicker';
+import { SelectDatepickerErrorBoundary } from '../components/SelectDatepickerErrorBoundary';
 import type { SelectDatepickerOrder } from '../types/SelectDatepickerOrder';
 
 export default {
@@ -431,6 +432,40 @@ export const WithThemingOverrides = {
           }`
         ),
       ]
+    );
+  },
+};
+
+const CrashOnRender = () => {
+  throw new Error('Intentional render error');
+};
+
+export const WithErrorBoundary = {
+  render: () => {
+    return (
+      <div style={{ padding: '20px', maxWidth: '480px' }}>
+        <h3>Error Boundary</h3>
+        <p style={{ marginBottom: '12px' }}>
+          This example intentionally throws to demonstrate the fallback UI.
+        </p>
+        <SelectDatepickerErrorBoundary
+          renderFallback={(error) => (
+            <div
+              role="alert"
+              style={{
+                padding: '12px',
+                borderRadius: '8px',
+                background: '#fff1f2',
+                color: '#9f1239',
+              }}
+            >
+              Error: {error.message}
+            </div>
+          )}
+        >
+          <CrashOnRender />
+        </SelectDatepickerErrorBoundary>
+      </div>
     );
   },
 };

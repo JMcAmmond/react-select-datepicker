@@ -25,14 +25,14 @@ import { SelectDatepicker } from 'react-select-datepicker';
 export const App = () => {
   const [value, setValue] = useState<Date | null>();
 
-  const onDateChange = useCallback((date: Date | null) => {
+  const onChange = useCallback((date: Date | null) => {
     setValue(date);
   }, []);
 
   return (
     <SelectDatepicker
-      selectedDate={value}
-      onDateChange={onDateChange}
+      value={value}
+      onChange={onChange}
     />
   );
 };

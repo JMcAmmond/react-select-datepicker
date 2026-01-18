@@ -10,7 +10,8 @@ import { createSmartDate, isValidDate, normalizeToLocalMidnight } from '../utils
 import { isValidOrder, validateDateRange, isDateInRange, isDate } from '../utils/validation';
 import { useKeyboardNavigation, useFocusManagement } from '../hooks/useKeyboardNavigation';
 import { OptionsRenderer } from './OptionsRenderer';
-import { SelectRenderer } from './SelectRenderer';
+import { SelectDatepickerContext } from './SelectDatepickerContext';
+import { SelectDatepickerField } from './SelectDatepickerField';
 import './SelectDatepicker.css';
 
 const SelectDatepicker = ({
@@ -20,6 +21,8 @@ const SelectDatepicker = ({
   maxDate,
   selectedDate,
   onDateChange,
+  value,
+  onChange,
   disabled = false,
   hasError = false,
   monthRef,
@@ -88,6 +91,90 @@ const SelectDatepicker = ({
     () => [`${classPrefix}_react-select-datepicker`, className].join(' '),
     [className]
   );
+
+  const resolvedSelectedDate = useMemo(
+    () => (value !== undefined ? value : selectedDate),
+    [value, selectedDate]
+  );
+  const resolvedOnChange = useMemo(() => onChange ?? onDateChange, [onChange, onDateChange]);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
+
+    if (order && !isValidOrder(order)) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[SelectDatepicker] Invalid order "${order}". Falling back to "month/day/year".`
+      );
+    }
+
+    if (onChange && onDateChange) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        '[SelectDatepicker] Both onChange and onDateChange provided. onChange will be used.'
+      );
+    }
+
+    if (value !== undefined && selectedDate !== undefined) {
+      // eslint-disable-next-line no-console
+      console.warn('[SelectDatepicker] Both value and selectedDate provided. value will be used.');
+    }
+
+    if (!resolvedOnChange) {
+      // eslint-disable-next-line no-console
+      console.warn('[SelectDatepicker] Missing onChange/onDateChange handler.');
+    }
+
+    if (minDate && !isDate(minDate)) {
+      // eslint-disable-next-line no-console
+      console.warn('[SelectDatepicker] minDate is not a valid Date instance.');
+    }
+
+    if (maxDate && !isDate(maxDate)) {
+      // eslint-disable-next-line no-console
+      console.warn('[SelectDatepicker] maxDate is not a valid Date instance.');
+    }
+
+    if (
+      minDate &&
+      maxDate &&
+      isDate(minDate) &&
+      isDate(maxDate) &&
+      !validateDateRange(minDate, maxDate)
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn('[SelectDatepicker] minDate is after maxDate. Range constraints ignored.');
+    }
+
+    if (selectedDate !== undefined && selectedDate !== null && !isDate(selectedDate)) {
+      // eslint-disable-next-line no-console
+      console.warn('[SelectDatepicker] selectedDate is not a valid Date instance.');
+    }
+
+    if (labels?.months) {
+      const monthsMap = labels.months as Record<number, string>;
+      const missingMonths = Array.from({ length: 12 }, (_, i) => i + 1).filter(
+        (monthKey) => monthsMap[monthKey] === undefined
+      );
+      if (missingMonths.length > 0) {
+        const missingMonthLabels = missingMonths.join(', ');
+        // eslint-disable-next-line no-console
+        console.warn(
+          `[SelectDatepicker] labels.months is missing entries for months: ${missingMonthLabels}.`
+        );
+      }
+    }
+  }, [
+    order,
+    minDate,
+    maxDate,
+    selectedDate,
+    labels,
+    onChange,
+    onDateChange,
+    value,
+    resolvedOnChange,
+  ]);
 
   const safeMinDate = useMemo(
     () => (isDate(minDate) ? normalizeToLocalMidnight(minDate) : undefined),
@@ -163,115 +250,77 @@ const SelectDatepicker = ({
     setDay(Number(e.target.value));
   }, []);
 
-  const field: { day: JSX.Element; month: JSX.Element; year: JSX.Element } = useMemo(() => {
-    return {
-      day: (
-        <SelectRenderer
-          id={`day-${baseId}`}
-          labels={{
-            hide: hideLabels,
-            main: labels.dayLabel || 'Day',
-            placeholder: labels.dayPlaceholder || 'Select Day',
-          }}
-          value={day}
-          disabled={disabled}
-          onChangeHandler={handleDayChange}
-          selectOptions={dayOptions}
-          ref={dayRef}
-          required={true}
-          invalid={hasError}
-        />
-      ),
-      month: (
-        <SelectRenderer
-          id={`month-${baseId}`}
-          labels={{
-            hide: hideLabels,
-            main: labels.monthLabel || 'Month',
-            placeholder: labels.monthPlaceholder || 'Select Month',
-          }}
-          value={month}
-          disabled={disabled}
-          onChangeHandler={handleMonthChange}
-          selectOptions={monthOptions}
-          ref={monthRef}
-          required={true}
-          invalid={hasError}
-        />
-      ),
-      year: (
-        <SelectRenderer
-          id={`year-${baseId}`}
-          labels={{
-            hide: hideLabels,
-            main: labels.yearLabel || 'Year',
-            placeholder: labels.yearPlaceholder || 'Select Year',
-          }}
-          value={year}
-          disabled={disabled}
-          onChangeHandler={handleYearChange}
-          selectOptions={yearOptions}
-          ref={yearRef}
-          required={true}
-          invalid={hasError}
-        />
-      ),
-    };
-  }, [
-    baseId,
-    day,
-    dayOptions,
-    dayRef,
-    disabled,
-    handleDayChange,
-    handleMonthChange,
-    handleYearChange,
-    hideLabels,
-    hasError,
-    labels.dayLabel,
-    labels.dayPlaceholder,
-    labels.monthLabel,
-    labels.monthPlaceholder,
-    labels.yearLabel,
-    labels.yearPlaceholder,
-    month,
-    monthOptions,
-    monthRef,
-    year,
-    yearOptions,
-    yearRef,
-  ]);
+  const contextValue = useMemo(
+    () => ({
+      baseId,
+      labels,
+      hideLabels,
+      disabled,
+      hasError,
+      day,
+      month,
+      year,
+      dayOptions,
+      monthOptions,
+      yearOptions,
+      dayRef,
+      monthRef,
+      yearRef,
+      onDayChange: handleDayChange,
+      onMonthChange: handleMonthChange,
+      onYearChange: handleYearChange,
+    }),
+    [
+      baseId,
+      labels,
+      hideLabels,
+      disabled,
+      hasError,
+      day,
+      month,
+      year,
+      dayOptions,
+      monthOptions,
+      yearOptions,
+      dayRef,
+      monthRef,
+      yearRef,
+      handleDayChange,
+      handleMonthChange,
+      handleYearChange,
+    ]
+  );
 
   useEffect(() => {
     if (
-      selectedDate !== undefined &&
-      selectedDate !== null &&
-      isDate(selectedDate) &&
-      isValidDate(selectedDate)
+      resolvedSelectedDate !== undefined &&
+      resolvedSelectedDate !== null &&
+      isDate(resolvedSelectedDate) &&
+      isValidDate(resolvedSelectedDate)
     ) {
-      setDay(Number(selectedDate.getDate()));
-      setMonth(Number(selectedDate.getMonth() + 1));
-      setYear(Number(selectedDate.getFullYear()));
+      setDay(Number(resolvedSelectedDate.getDate()));
+      setMonth(Number(resolvedSelectedDate.getMonth() + 1));
+      setYear(Number(resolvedSelectedDate.getFullYear()));
     } else {
       // Reset to invalid state if selectedDate is invalid
       setDay(-1);
       setMonth(-1);
       setYear(-1);
     }
-  }, [selectedDate]);
+  }, [resolvedSelectedDate]);
 
   useEffect(() => {
     if (year !== -1 && month !== -1 && day !== -1) {
       const newDate = createSmartDate(year, month, day);
       if (isDateInRange(newDate, effectiveMinDate, effectiveMaxDate)) {
-        onDateChange(newDate);
+        resolvedOnChange?.(newDate);
       } else {
-        onDateChange(null);
+        resolvedOnChange?.(null);
       }
     } else {
-      onDateChange(null);
+      resolvedOnChange?.(null);
     }
-  }, [day, month, year, onDateChange, effectiveMinDate, effectiveMaxDate]);
+  }, [day, month, year, resolvedOnChange, effectiveMinDate, effectiveMaxDate]);
 
   // Memoize validation message to avoid recalculation
   const validationMessage = useMemo(() => {
@@ -313,12 +362,18 @@ const SelectDatepicker = ({
         </div>
       )}
 
-      <div className={`${classPrefix}_select-row`}>
-        {orderArray.map((key, i) => {
-          const fieldKey = key as 'day' | 'month' | 'year';
-          return <React.Fragment key={`${key}-${i}`}>{field[fieldKey]}</React.Fragment>;
-        })}
-      </div>
+      <SelectDatepickerContext.Provider value={contextValue}>
+        <div className={`${classPrefix}_select-row`}>
+          {orderArray.map((key, i) => {
+            const fieldKey = key as 'day' | 'month' | 'year';
+            return (
+              <React.Fragment key={`${key}-${i}`}>
+                <SelectDatepickerField fieldKey={fieldKey} />
+              </React.Fragment>
+            );
+          })}
+        </div>
+      </SelectDatepickerContext.Provider>
 
       {validationMessage && (
         <div

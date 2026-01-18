@@ -13,8 +13,8 @@ const DemoPickerComponent = () => {
     <>
       <p>Select a date:</p>
       <SelectDatepicker
-        selectedDate={value}
-        onDateChange={onDateChange}
+        value={value}
+        onChange={onDateChange}
         className="rsd-theme-sunset"
         hideLabels
       />
