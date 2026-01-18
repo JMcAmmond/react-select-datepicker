@@ -57,25 +57,42 @@ export const WithCustomLabels = {
       setSelected(date);
     }, []);
 
+    const spanishMonths = {
+      1: 'Enero',
+      2: 'Febrero',
+      3: 'Marzo',
+      4: 'Abril',
+      5: 'Mayo',
+      6: 'Junio',
+      7: 'Julio',
+      8: 'Agosto',
+      9: 'Septiembre',
+      10: 'Octubre',
+      11: 'Noviembre',
+      12: 'Diciembre',
+    } as const;
+
     return React.createElement(
       'div',
       {
         style: { padding: '20px', maxWidth: '400px' },
       },
       [
-        React.createElement('h3', null, 'With Custom Labels'),
+        React.createElement('h3', null, 'Custom Labels + Months (Spanish)'),
         React.createElement(SelectDatepicker, {
           selectedDate: selected,
           onDateChange: handleDateChange,
           labels: {
-            groupLabel: 'Select your travel date',
-            yearLabel: 'Year',
-            monthLabel: 'Month',
-            dayLabel: 'Day',
-            yearPlaceholder: 'Select Year',
-            monthPlaceholder: 'Select Month',
-            dayPlaceholder: 'Select Day',
+            groupLabel: 'Selecciona tu fecha de viaje',
+            yearLabel: 'Año',
+            monthLabel: 'Mes',
+            dayLabel: 'Día',
+            yearPlaceholder: 'Selecciona año',
+            monthPlaceholder: 'Selecciona mes',
+            dayPlaceholder: 'Selecciona día',
+            months: spanishMonths,
           },
+          order: 'day/month/year',
         }),
       ]
     );
@@ -200,51 +217,6 @@ export const WithReverseYears = {
   },
 };
 
-export const WithCustomMonths = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
-    const handleDateChange = React.useCallback((date: Date | null) => {
-      setSelected(date);
-    }, []);
-
-    return React.createElement(
-      'div',
-      {
-        style: { padding: '20px', maxWidth: '420px' },
-      },
-      [
-        React.createElement('h3', null, 'Custom Month Labels'),
-        React.createElement(SelectDatepicker, {
-          id: 'custom-months',
-          selectedDate: selected,
-          onDateChange: handleDateChange,
-          labels: {
-            monthLabel: 'Mes',
-            dayLabel: 'Día',
-            yearLabel: 'Año',
-            monthPlaceholder: 'Selecciona mes',
-            dayPlaceholder: 'Selecciona día',
-            yearPlaceholder: 'Selecciona año',
-            months: {
-              1: 'Enero',
-              2: 'Febrero',
-              3: 'Marzo',
-              4: 'Abril',
-              5: 'Mayo',
-              6: 'Junio',
-              7: 'Julio',
-              8: 'Agosto',
-              9: 'Septiembre',
-              10: 'Octubre',
-              11: 'Noviembre',
-              12: 'Diciembre',
-            },
-          },
-        }),
-      ]
-    );
-  },
-};
 
 export const WithSmartDateCorrection = {
   render: () => {

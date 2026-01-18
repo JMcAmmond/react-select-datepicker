@@ -121,11 +121,16 @@ export const getCachedMonthsObject = (
     12: 'December',
   }
 ): { value: number; label: string }[] => {
+  const monthsSignature = Object.keys(months)
+    .sort((a, b) => Number(a) - Number(b))
+    .map((key) => `${key}:${months[key]}`)
+    .join(',');
+
   const cacheKey = createCacheKey(
     start?.getFullYear() || 'undefined',
     end?.getFullYear() || 'undefined',
     selectedYear,
-    Object.keys(months).length
+    monthsSignature
   );
 
   let result = monthsCache.get(cacheKey);
