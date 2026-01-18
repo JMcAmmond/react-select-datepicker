@@ -11,12 +11,14 @@ const DemoPickerComponent = () => {
 
   return (
     <>
-      <p>Select a date:</p>
       <SelectDatepicker
         value={value}
         onChange={onDateChange}
         className="rsd-theme-sunset"
         hideLabels
+        labels = {{
+          groupLabel: 'Select a date',
+        }}
       />
     </>
   );

@@ -33,6 +33,9 @@ export const App = () => {
     <SelectDatepicker
       value={value}
       onChange={onChange}
+      labels={{
+        groupLabel: 'Select your date',
+      }}
     />
   );
 };

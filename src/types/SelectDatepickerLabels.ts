@@ -14,6 +14,8 @@ export type Months = {
 };
 
 export type SelectDatepickerLabels = {
+  /** Single label for the entire date picker group */
+  readonly groupLabel?: string;
   /** Label for the year select field */
   readonly yearLabel?: string;
   /** Label for the month select field */

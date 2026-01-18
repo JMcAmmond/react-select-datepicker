@@ -344,22 +344,28 @@ const SelectDatepicker = ({
     }
   }, [hasError, day, month, year, labels.dayLabel, labels.monthLabel, labels.yearLabel]);
 
+  const legendId = `${id || baseId}-legend`;
+  const shouldRenderLegend = Boolean(labels.groupLabel || !hideLabels);
+  const legendText = labels.groupLabel
+    ? labels.groupLabel
+    : labels.yearLabel && labels.monthLabel && labels.dayLabel
+      ? `Select ${labels.monthLabel}, ${labels.dayLabel}, and ${labels.yearLabel}`
+      : 'Select date';
+
   return (
     <div
       {...args}
       className={combinedClassNames}
       id={id}
       role="group"
-      aria-labelledby={id ? `${id}-legend` : undefined}
+      aria-labelledby={shouldRenderLegend ? legendId : undefined}
       aria-describedby={validationMessage ? `${id || baseId}-error` : undefined}
       aria-invalid={hasError}
     >
-      {id && !hideLabels && (
-        <div id={`${id}-legend`} className={`${classPrefix}_legend`}>
-          {labels.yearLabel && labels.monthLabel && labels.dayLabel
-            ? `Select ${labels.monthLabel}, ${labels.dayLabel}, and ${labels.yearLabel}`
-            : 'Select date'}
-        </div>
+      {shouldRenderLegend && (
+        <label id={legendId} className={`${classPrefix}_legend`}>
+          {legendText}
+        </label>
       )}
 
       <SelectDatepickerContext.Provider value={contextValue}>

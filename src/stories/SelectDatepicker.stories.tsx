@@ -68,6 +68,7 @@ export const WithCustomLabels = {
           selectedDate: selected,
           onDateChange: handleDateChange,
           labels: {
+            groupLabel: 'Select your travel date',
             yearLabel: 'Year',
             monthLabel: 'Month',
             dayLabel: 'Day',
