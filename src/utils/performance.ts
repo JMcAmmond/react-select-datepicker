@@ -5,6 +5,7 @@
 // Simple LRU cache for expensive calculations
 class LRUCache<K, V> {
   private cache = new Map<K, V>();
+
   private maxSize: number;
 
   constructor(maxSize = 50) {

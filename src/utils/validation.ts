@@ -1,4 +1,5 @@
 import { SelectDatepickerOrder } from '../types/SelectDatepickerOrder';
+import { normalizeToLocalMidnight } from './dateUtils';
 
 export const VALID_ORDERS = [
   'day/month/year',
@@ -21,15 +22,18 @@ export function isValidOrder(order: string): order is SelectDatepickerOrder {
  */
 export function validateDateRange(minDate?: Date, maxDate?: Date): boolean {
   if (!minDate || !maxDate) return true;
-  return minDate <= maxDate;
+  const normalizedMin = normalizeToLocalMidnight(minDate);
+  const normalizedMax = normalizeToLocalMidnight(maxDate);
+  return normalizedMin <= normalizedMax;
 }
 
 /**
  * Validates if a date is within the allowed range
  */
 export function isDateInRange(date: Date, minDate?: Date, maxDate?: Date): boolean {
-  if (minDate && date < minDate) return false;
-  if (maxDate && date > maxDate) return false;
+  const normalizedDate = normalizeToLocalMidnight(date);
+  if (minDate && normalizedDate < normalizeToLocalMidnight(minDate)) return false;
+  if (maxDate && normalizedDate > normalizeToLocalMidnight(maxDate)) return false;
   return true;
 }
 

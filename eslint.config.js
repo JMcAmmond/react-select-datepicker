@@ -76,6 +76,12 @@ module.exports = {
         'import/no-default-export': 'off',
       },
     },
+    {
+      files: ['src/stories/**/*.tsx', 'src/stories/**/*.ts'],
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
   ],
 
   rules: {
@@ -116,11 +122,17 @@ module.exports = {
           '**/example/**',
           '*.js',
           '**/*.test.js',
+          '**/*.test.ts',
+          '**/*.test.tsx',
           '**/*.stories.*',
           '**/scripts/*.js',
           '**/stories/**/*.js',
+          '**/stories/**/*.ts',
+          '**/stories/**/*.tsx',
           '**/stories/**/*.*',
           '**/__tests__/**/*.js',
+          '**/__tests__/**/*.ts',
+          '**/__tests__/**/*.tsx',
           '**/.storybook/**/*.*',
         ],
         peerDependencies: true,

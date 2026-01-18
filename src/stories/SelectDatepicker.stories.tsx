@@ -1,5 +1,6 @@
 import React from 'react';
 import { SelectDatepicker } from '../components/SelectDatepicker';
+import type { SelectDatepickerOrder } from '../types/SelectDatepickerOrder';
 
 export default {
   title: 'SelectDatepicker',
@@ -344,7 +345,7 @@ export const WithInvalidOrderFallback = {
           id: 'invalid-order',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          order: 'month-year-day',
+          order: 'month-year-day' as unknown as SelectDatepickerOrder,
         }),
       ]
     );

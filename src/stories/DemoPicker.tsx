@@ -11,7 +11,7 @@ const DemoPickerComponent = () => {
 
   return (
     <>
-      <label>Select a date:</label>
+      <p>Select a date:</p>
       <SelectDatepicker
         selectedDate={value}
         onDateChange={onDateChange}

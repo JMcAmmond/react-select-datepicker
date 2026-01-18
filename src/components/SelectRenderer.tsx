@@ -33,9 +33,7 @@ export const SelectRenderer = ({
   const labelId = `${classPrefix}_label-${id}`;
 
   return (
-    <div
-      className={`${classPrefix}_select-container ${classPrefix}_select-container-${id}`}
-    >
+    <div className={`${classPrefix}_select-container ${classPrefix}_select-container-${id}`}>
       {!labels.hide && (
         <label
           id={labelId}

@@ -42,6 +42,15 @@ export const createFirstOfMonth = (year: number, month: number): Date => {
 };
 
 /**
+ * Normalizes a Date to local midnight to avoid timezone-related shifts
+ * @param date Date to normalize
+ * @returns Date at local midnight
+ */
+export const normalizeToLocalMidnight = (date: Date): Date => {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+};
+
+/**
  * Checks if a date is valid (not NaN)
  * @param date Date object to check
  * @returns true if date is valid

@@ -6,7 +6,7 @@ import {
   getCachedMonthsObject,
   getCachedYearsObject,
 } from '../utils/performance';
-import { createSmartDate, isValidDate } from '../utils/dateUtils';
+import { createSmartDate, isValidDate, normalizeToLocalMidnight } from '../utils/dateUtils';
 import { isValidOrder, validateDateRange, isDateInRange, isDate } from '../utils/validation';
 import { useKeyboardNavigation, useFocusManagement } from '../hooks/useKeyboardNavigation';
 import { OptionsRenderer } from './OptionsRenderer';
@@ -89,8 +89,14 @@ const SelectDatepicker = ({
     [className]
   );
 
-  const safeMinDate = useMemo(() => (isDate(minDate) ? minDate : undefined), [minDate]);
-  const safeMaxDate = useMemo(() => (isDate(maxDate) ? maxDate : undefined), [maxDate]);
+  const safeMinDate = useMemo(
+    () => (isDate(minDate) ? normalizeToLocalMidnight(minDate) : undefined),
+    [minDate]
+  );
+  const safeMaxDate = useMemo(
+    () => (isDate(maxDate) ? normalizeToLocalMidnight(maxDate) : undefined),
+    [maxDate]
+  );
   const isRangeValid = useMemo(
     () => validateDateRange(safeMinDate, safeMaxDate),
     [safeMinDate, safeMaxDate]
@@ -102,7 +108,9 @@ const SelectDatepicker = ({
   // Use cached versions for better performance
   const yearOptions = useMemo(
     () => (
-      <OptionsRenderer options={getCachedYearsObject(effectiveMinDate, effectiveMaxDate, reverseYears)} />
+      <OptionsRenderer
+        options={getCachedYearsObject(effectiveMinDate, effectiveMaxDate, reverseYears)}
+      />
     ),
     [effectiveMaxDate, effectiveMinDate, reverseYears]
   );
@@ -115,7 +123,11 @@ const SelectDatepicker = ({
     [effectiveMaxDate, effectiveMinDate, labels.months, year]
   );
   const dayOptions = useMemo(
-    () => <OptionsRenderer options={getCachedDaysObject(effectiveMinDate, effectiveMaxDate, month, year)} />,
+    () => (
+      <OptionsRenderer
+        options={getCachedDaysObject(effectiveMinDate, effectiveMaxDate, month, year)}
+      />
+    ),
     [effectiveMaxDate, effectiveMinDate, month, year]
   );
 
@@ -150,11 +162,6 @@ const SelectDatepicker = ({
   const handleDayChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setDay(Number(e.target.value));
   }, []);
-
-  const hasInvalidFields =
-    (day === -1 && month !== -1 && year !== -1) ||
-    (month === -1 && day !== -1 && year !== -1) ||
-    (year === -1 && day !== -1 && month !== -1);
 
   const field: { day: JSX.Element; month: JSX.Element; year: JSX.Element } = useMemo(() => {
     return {
@@ -236,7 +243,12 @@ const SelectDatepicker = ({
   ]);
 
   useEffect(() => {
-    if (selectedDate !== undefined && selectedDate !== null && isDate(selectedDate) && isValidDate(selectedDate)) {
+    if (
+      selectedDate !== undefined &&
+      selectedDate !== null &&
+      isDate(selectedDate) &&
+      isValidDate(selectedDate)
+    ) {
       setDay(Number(selectedDate.getDate()));
       setMonth(Number(selectedDate.getMonth() + 1));
       setYear(Number(selectedDate.getFullYear()));
@@ -259,7 +271,6 @@ const SelectDatepicker = ({
     } else {
       onDateChange(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [day, month, year, onDateChange, effectiveMinDate, effectiveMaxDate]);
 
   // Memoize validation message to avoid recalculation
@@ -295,10 +306,7 @@ const SelectDatepicker = ({
       aria-invalid={hasError}
     >
       {id && !hideLabels && (
-        <div
-          id={`${id}-legend`}
-          className={`${classPrefix}_legend`}
-        >
+        <div id={`${id}-legend`} className={`${classPrefix}_legend`}>
           {labels.yearLabel && labels.monthLabel && labels.dayLabel
             ? `Select ${labels.monthLabel}, ${labels.dayLabel}, and ${labels.yearLabel}`
             : 'Select date'}
