@@ -1,0 +1,9 @@
+.rsd__select-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.rsd__required-indicator {
+  color: #666;
+  margin-left: 4px;
+}

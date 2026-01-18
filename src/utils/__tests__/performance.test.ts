@@ -20,7 +20,7 @@ describe('Performance Utils', () => {
     });
 
     it('should generate correct year options', () => {
-      const result = getCachedYearsObject(new Date('2020-01-01'), new Date('2025-12-31'));
+      const result = getCachedYearsObject(new Date(2020, 0, 1), new Date(2025, 11, 31));
       expect(result).toHaveLength(6); // 2020-2025
       expect(result[0].value).toBe(2025);
       expect(result[5].value).toBe(2020);
@@ -44,13 +44,13 @@ describe('Performance Utils', () => {
 
   describe('getCachedDaysObject', () => {
     it('should cache day objects', () => {
-      const result1 = getCachedDaysObject(undefined, undefined, 2024, 2);
-      const result2 = getCachedDaysObject(undefined, undefined, 2024, 2);
+      const result1 = getCachedDaysObject(undefined, undefined, 2, 2024);
+      const result2 = getCachedDaysObject(undefined, undefined, 2, 2024);
       expect(result1).toBe(result2); // Should hit cache
     });
 
     it('should generate correct day options', () => {
-      const result = getCachedDaysObject(undefined, undefined, 2024, 2); // February in leap year
+      const result = getCachedDaysObject(undefined, undefined, 2, 2024); // February in leap year
       expect(result).toHaveLength(29); // 29 days - correct! Function works as designed
       expect(result[0].value).toBe(1);
       expect(result[28].value).toBe(29);

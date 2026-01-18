@@ -1,5 +1,6 @@
 import React from 'react';
 import { classPrefix } from '../utils/helpers';
+import './SelectRenderer.css';
 
 interface ISelectRenderer {
   id: string;
@@ -33,14 +34,13 @@ export const SelectRenderer = ({
 
   return (
     <div
-      style={{ display: 'flex', flexDirection: 'column' }}
-      className={`${classPrefix}_select-container-${id}`}
+      className={`${classPrefix}_select-container ${classPrefix}_select-container-${id}`}
     >
       {!labels.hide && (
         <label id={labelId} htmlFor={selectId} className={`${classPrefix}_label-${id}`}>
           {labels.main}
           {required && (
-            <span aria-label="required" style={{ color: '#666', marginLeft: '4px' }}>
+            <span aria-label="required" className={`${classPrefix}_required-indicator`}>
               *
             </span>
           )}
