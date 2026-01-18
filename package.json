@@ -4,7 +4,10 @@
   "description": "A simple and reusable dropdown datepicker component for React",
   "author": "JMcAmmond",
   "license": "MIT",
-  "repository": "JMcAmmond/react-select-datepicker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JMcAmmond/react-select-datepicker.git"
+  },
   "bugs": {
     "url": "https://github.com/JMcAmmond/react-select-datepicker/issues"
   },
