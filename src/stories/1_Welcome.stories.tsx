@@ -51,24 +51,18 @@ export const Welcome = {
             border: 1px solid rgba(0,0,0,0.2);
           }
 
-          .demo select {
-            font-size: 16px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-          }
-
-          .demo .rsd__react-select-datepicker {
-            display: flex;
-            gap: 8px;
+          .demo .rsd-theme-sunset {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          }
-
-          .demo label {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 4px;
+            --rsd-gap: 12px;
+            --rsd-legend-font-size: 18px;
+            --rsd-legend-font-weight: 700;
+            --rsd-error-color: #b42318;
+            --rsd-select-padding: 10px 12px;
+            --rsd-select-border-radius: 10px;
+            --rsd-select-font-size: 15px;
+            --rsd-select-disabled-bg: #fff7ed;
+            --rsd-select-disabled-color: #9a3412;
+            --rsd-required-color: #9a3412;
           }
 
           h2 {
@@ -169,7 +163,7 @@ import { SelectDatepicker } from 'react-select-datepicker';
 export const App = () => {
   const [value, setValue] = useState<Date | null>();
 
-  const onDateChange = useCallback((date: Date) => {
+  const onDateChange = useCallback((date: Date | null) => {
     setValue(date);
   }, []);
 

@@ -37,7 +37,11 @@ export const SelectRenderer = ({
       className={`${classPrefix}_select-container ${classPrefix}_select-container-${id}`}
     >
       {!labels.hide && (
-        <label id={labelId} htmlFor={selectId} className={`${classPrefix}_label-${id}`}>
+        <label
+          id={labelId}
+          htmlFor={selectId}
+          className={`${classPrefix}_label ${classPrefix}_label-${id}`}
+        >
           {labels.main}
           {required && (
             <span aria-label="required" className={`${classPrefix}_required-indicator`}>
@@ -52,7 +56,7 @@ export const SelectRenderer = ({
         disabled={disabled}
         onChange={onChangeHandler}
         ref={ref}
-        className={`${classPrefix}_select-${id}`}
+        className={`${classPrefix}_select ${classPrefix}_select-${id}`}
         required={required}
         aria-invalid={invalid}
         aria-labelledby={!labels.hide ? labelId : undefined}

@@ -3,7 +3,23 @@
   flex-direction: column;
 }
 
+.rsd__label {
+  margin-bottom: var(--rsd-label-margin-bottom);
+}
+
+.rsd__select {
+  padding: var(--rsd-select-padding);
+  border: var(--rsd-select-border);
+  border-radius: var(--rsd-select-border-radius);
+  font-size: var(--rsd-select-font-size);
+}
+
+.rsd__select:disabled {
+  background: var(--rsd-select-disabled-bg);
+  color: var(--rsd-select-disabled-color);
+}
+
 .rsd__required-indicator {
-  color: #666;
-  margin-left: 4px;
+  color: var(--rsd-required-color);
+  margin-left: var(--rsd-required-margin-left);
 }
