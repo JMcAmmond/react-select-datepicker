@@ -18,7 +18,7 @@ export const SelectDatepickerField = ({ fieldKey }: SelectDatepickerFieldProps) 
     labels,
     hideLabels,
     disabled,
-    hasError,
+    isInvalid,
     day,
     month,
     year,
@@ -84,7 +84,7 @@ export const SelectDatepickerField = ({ fieldKey }: SelectDatepickerFieldProps) 
       selectOptions={field.options}
       ref={field.ref}
       required={true}
-      invalid={hasError}
+      invalid={isInvalid}
     />
   );
 };

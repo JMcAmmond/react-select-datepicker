@@ -7,6 +7,18 @@
   margin-bottom: var(--rsd-label-margin-bottom);
 }
 
+.rsd__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .rsd__select {
   padding: var(--rsd-select-padding);
   border: var(--rsd-select-border);

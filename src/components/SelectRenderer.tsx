@@ -31,23 +31,24 @@ export const SelectRenderer = ({
 }: ISelectRenderer) => {
   const selectId = `${classPrefix}_select-${id}`;
   const labelId = `${classPrefix}_label-${id}`;
+  const labelClassName = [
+    `${classPrefix}_label`,
+    `${classPrefix}_label-${id}`,
+    labels.hide ? `${classPrefix}_sr-only` : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div className={`${classPrefix}_select-container ${classPrefix}_select-container-${id}`}>
-      {!labels.hide && (
-        <label
-          id={labelId}
-          htmlFor={selectId}
-          className={`${classPrefix}_label ${classPrefix}_label-${id}`}
-        >
-          {labels.main}
-          {required && (
-            <span aria-label="required" className={`${classPrefix}_required-indicator`}>
-              *
-            </span>
-          )}
-        </label>
-      )}
+      <label id={labelId} htmlFor={selectId} className={labelClassName}>
+        {labels.main}
+        {required && (
+          <span aria-label="required" className={`${classPrefix}_required-indicator`}>
+            *
+          </span>
+        )}
+      </label>
       <select
         id={selectId}
         value={value}
@@ -57,7 +58,7 @@ export const SelectRenderer = ({
         className={`${classPrefix}_select ${classPrefix}_select-${id}`}
         required={required}
         aria-invalid={invalid}
-        aria-labelledby={!labels.hide ? labelId : undefined}
+        aria-labelledby={labelId}
       >
         <option value={-1} disabled>
           {labels.placeholder}

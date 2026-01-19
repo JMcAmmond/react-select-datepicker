@@ -252,46 +252,6 @@ const SelectDatepicker = ({
     setDay(Number(e.target.value));
   }, []);
 
-  const contextValue = useMemo(
-    () => ({
-      baseId,
-      labels,
-      hideLabels,
-      disabled,
-      hasError,
-      day,
-      month,
-      year,
-      dayOptions,
-      monthOptions,
-      yearOptions,
-      dayRef,
-      monthRef,
-      yearRef,
-      onDayChange: handleDayChange,
-      onMonthChange: handleMonthChange,
-      onYearChange: handleYearChange,
-    }),
-    [
-      baseId,
-      labels,
-      hideLabels,
-      disabled,
-      hasError,
-      day,
-      month,
-      year,
-      dayOptions,
-      monthOptions,
-      yearOptions,
-      dayRef,
-      monthRef,
-      yearRef,
-      handleDayChange,
-      handleMonthChange,
-      handleYearChange,
-    ]
-  );
 
   useEffect(() => {
     const nextTime =
@@ -379,6 +339,49 @@ const SelectDatepicker = ({
     }
   }, [hasError, day, month, year, labels.dayLabel, labels.monthLabel, labels.yearLabel]);
 
+  const contextValue = useMemo(
+    () => ({
+      baseId,
+      labels,
+      hideLabels,
+      disabled,
+      hasError,
+      isInvalid: Boolean(validationMessage),
+      day,
+      month,
+      year,
+      dayOptions,
+      monthOptions,
+      yearOptions,
+      dayRef,
+      monthRef,
+      yearRef,
+      onDayChange: handleDayChange,
+      onMonthChange: handleMonthChange,
+      onYearChange: handleYearChange,
+    }),
+    [
+      baseId,
+      labels,
+      hideLabels,
+      disabled,
+      hasError,
+      validationMessage,
+      day,
+      month,
+      year,
+      dayOptions,
+      monthOptions,
+      yearOptions,
+      dayRef,
+      monthRef,
+      yearRef,
+      handleDayChange,
+      handleMonthChange,
+      handleYearChange,
+    ]
+  );
+
   const legendId = `${id || baseId}-legend`;
   const shouldRenderLegend = Boolean(labels.groupLabel || !hideLabels);
   const legendText = labels.groupLabel
@@ -388,19 +391,17 @@ const SelectDatepicker = ({
       : 'Select date';
 
   return (
-    <div
+    <fieldset
       {...args}
       className={combinedClassNames}
       id={id}
-      role="group"
-      aria-labelledby={shouldRenderLegend ? legendId : undefined}
       aria-describedby={validationMessage ? `${id || baseId}-error` : undefined}
-      aria-invalid={hasError}
+      aria-invalid={Boolean(validationMessage)}
     >
       {shouldRenderLegend && (
-        <label id={legendId} className={`${classPrefix}_legend`}>
+        <legend id={legendId} className={`${classPrefix}_legend`}>
           {legendText}
-        </label>
+        </legend>
       )}
 
       <SelectDatepickerContext.Provider value={contextValue}>
@@ -426,7 +427,7 @@ const SelectDatepicker = ({
           {validationMessage}
         </div>
       )}
-    </div>
+    </fieldset>
   );
 };
 

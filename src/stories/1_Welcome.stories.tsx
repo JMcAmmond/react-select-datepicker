@@ -60,6 +60,10 @@ export const Welcome = {
             --rsd-select-padding: 10px 12px;
             --rsd-select-border-radius: 10px;
             --rsd-select-font-size: 15px;
+            --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rsd-select-hover-border: rgba(30, 64, 175, 0.5);
+            --rsd-select-focus-border: #2563eb;
+            --rsd-select-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
             --rsd-select-disabled-bg: #fff7ed;
             --rsd-select-disabled-color: #9a3412;
             --rsd-required-color: #9a3412;
@@ -250,6 +254,62 @@ export const App = () => {
   <SelectDatepicker value={value} onChange={onChange} />
 </SelectDatepickerErrorBoundary>
 `}</code>
+        </pre>
+
+        <h2>Style overrides (CSS variables)</h2>
+        <p>
+          Apply CSS variables on the root element (the wrapper with
+          <code>rsd__react-select-datepicker</code>) or pass a custom className.
+        </p>
+        <pre>
+          <code>{`<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  className="my-datepicker-theme"
+/>`}</code>
+        </pre>
+        <pre>
+          <code>{`.my-datepicker-theme {
+  --rsd-gap: 12px;
+  --rsd-legend-font-size: 18px;
+  --rsd-legend-font-weight: 700;
+  --rsd-error-color: #b42318;
+  --rsd-select-padding: 10px 12px;
+  --rsd-select-border-radius: 10px;
+  --rsd-select-font-size: 15px;
+  --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rsd-select-hover-border: rgba(30, 64, 175, 0.5);
+  --rsd-select-focus-border: #2563eb;
+  --rsd-select-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  --rsd-select-disabled-bg: #fff7ed;
+  --rsd-select-disabled-color: #9a3412;
+  --rsd-required-color: #9a3412;
+}`}</code>
+        </pre>
+
+        <h3>Available variables</h3>
+        <pre>
+          <code>{`--rsd-gap
+--rsd-legend-font-size
+--rsd-legend-font-weight
+--rsd-legend-margin-bottom
+--rsd-error-color
+--rsd-error-font-size
+--rsd-error-margin-top
+--rsd-required-color
+--rsd-required-margin-left
+--rsd-label-margin-bottom
+--rsd-select-padding
+--rsd-select-border
+--rsd-select-border-radius
+--rsd-select-font-size
+--rsd-select-font-family
+--rsd-select-line-height
+--rsd-select-hover-border
+--rsd-select-focus-border
+--rsd-select-focus-ring
+--rsd-select-disabled-bg
+--rsd-select-disabled-color`}</code>
         </pre>
       </section>
     </div>
