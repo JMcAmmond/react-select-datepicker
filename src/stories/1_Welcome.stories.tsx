@@ -5,6 +5,8 @@ export default {
   title: 'Welcome',
   parameters: {
     layout: 'centered',
+    controls: { disable: true },
+    actions: { disable: true },
   },
 };
 

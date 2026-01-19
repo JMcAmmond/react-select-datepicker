@@ -3,8 +3,37 @@ import { SelectDatepicker } from '../components/SelectDatepicker';
 import { SelectDatepickerErrorBoundary } from '../components/SelectDatepickerErrorBoundary';
 import type { SelectDatepickerOrder } from '../types/SelectDatepickerOrder';
 
+const resolveDateArg = (value: unknown): Date | null => {
+  if (typeof value === 'number') return new Date(value);
+  if (typeof value === 'string' && value.trim().length > 0) return new Date(value);
+  if (value instanceof Date) return value;
+  return null;
+};
+
+const resolveOptionalDateArg = (value: unknown): Date | undefined => {
+  if (typeof value === 'number') return new Date(value);
+  if (typeof value === 'string' && value.trim().length > 0) return new Date(value);
+  if (value instanceof Date) return value;
+  return undefined;
+};
+
+const useStoryDateState = (value: unknown) => {
+  const resolved = resolveDateArg(value);
+  const [selected, setSelected] = React.useState<Date | null>(resolved);
+
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setSelected(resolved);
+    }
+  }, [value, resolved]);
+
+  return [selected, setSelected] as const;
+};
+
 const withKeys = (nodes: React.ReactNode[]) =>
-  nodes.map((node, index) => (React.isValidElement(node) ? React.cloneElement(node, { key: node.key ?? index }) : node));
+  nodes.map((node, index) =>
+    React.isValidElement(node) ? React.cloneElement(node, { key: node.key ?? index }) : node
+  );
 
 const renderSelectedDate = (selected: Date | null) =>
   selected
@@ -18,17 +47,48 @@ const renderSelectedDate = (selected: Date | null) =>
       )
     : null;
 
-export default {
+const meta = {
   title: 'SelectDatepicker',
   component: SelectDatepicker,
   parameters: {
     layout: 'centered',
   },
+  args: {
+    order: 'month/day/year',
+    reverseYears: false,
+    hideLabels: false,
+    disabled: false,
+    hasError: false,
+    labels: {},
+    selectedDate: undefined,
+    minDate: undefined,
+    maxDate: undefined,
+  },
+  argTypes: {
+    order: {
+      control: { type: 'select' },
+      //options: ['month/day/year', 'day/month/year', 'year/month/day', 'month/year/day'],
+    },
+    reverseYears: { control: 'boolean' },
+    hideLabels: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    hasError: { control: 'boolean' },
+    labels: { control: 'object' },
+    selectedDate: { control: 'date' },
+    minDate: { control: 'date' },
+    maxDate: { control: 'date' },
+    onDateChange: { table: { disable: true } },
+    value: { table: { disable: true } },
+    onChange: { table: { disable: true } },
+  },
 };
 
+export default meta;
+
 export const Default = {
-  render: () => {
-    const [selected, setSelected] = React.useState(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -38,8 +98,11 @@ export const Default = {
       { style: { padding: '20px', maxWidth: '400px' } },
       withKeys([
         React.createElement(SelectDatepicker, {
+          ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
@@ -48,11 +111,14 @@ export const Default = {
 };
 
 export const WithDateRange = {
-  render: () => {
-    const [selected, setSelected] = React.useState(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
+    const resolvedMinDate = resolveOptionalDateArg(minDate) ?? new Date(2023, 0, 1);
+    const resolvedMaxDate = resolveOptionalDateArg(maxDate) ?? new Date(2025, 11, 31);
 
     return React.createElement(
       'div',
@@ -67,10 +133,11 @@ export const WithDateRange = {
           'Allowed range: Jan 1, 2023 – Dec 31, 2025'
         ),
         React.createElement(SelectDatepicker, {
+          ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
-          minDate: new Date(2023, 0, 1),
-          maxDate: new Date(2025, 11, 31),
+          minDate: resolvedMinDate,
+          maxDate: resolvedMaxDate,
         }),
         renderSelectedDate(selected),
       ])
@@ -79,8 +146,9 @@ export const WithDateRange = {
 };
 
 export const WithCustomLabels = {
-  render: () => {
-    const [selected, setSelected] = React.useState(null);
+  render: (args: any) => {
+    const { selectedDate, labels, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -108,8 +176,11 @@ export const WithCustomLabels = {
       withKeys([
         React.createElement('h3', null, 'Custom Labels + Months (Spanish)'),
         React.createElement(SelectDatepicker, {
+          ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
           labels: {
             groupLabel: 'Selecciona tu fecha de viaje',
             yearLabel: 'Año',
@@ -119,8 +190,8 @@ export const WithCustomLabels = {
             monthPlaceholder: 'Selecciona mes',
             dayPlaceholder: 'Selecciona día',
             months: spanishMonths,
+            ...labels,
           },
-          order: 'day/month/year',
         }),
         renderSelectedDate(selected),
         React.createElement(
@@ -131,11 +202,15 @@ export const WithCustomLabels = {
       ])
     );
   },
+  args: {
+    order: 'day/month/year',
+  },
 };
 
 export const DifferentOrder = {
-  render: () => {
-    const [selected, setSelected] = React.useState(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -148,19 +223,26 @@ export const DifferentOrder = {
       withKeys([
         React.createElement('h3', null, 'Different Order (Day/Month/Year)'),
         React.createElement(SelectDatepicker, {
+          ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
-          order: 'day/month/year',
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
     );
   },
+  args: {
+    order: 'day/month/year',
+  },
 };
 
 export const Disabled = {
-  render: () => {
+  render: (args: any) => {
     const selectedDate = new Date();
+
+    const { minDate, maxDate, ...rest } = args;
 
     return React.createElement(
       'div',
@@ -170,19 +252,25 @@ export const Disabled = {
       withKeys([
         React.createElement('h3', null, 'Disabled State'),
         React.createElement(SelectDatepicker, {
+          ...rest,
           selectedDate: selectedDate,
           onDateChange: () => {},
-          disabled: true,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selectedDate),
       ])
     );
   },
+  args: {
+    disabled: true,
+  },
 };
 
 export const WithErrorState = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -195,20 +283,26 @@ export const WithErrorState = {
       withKeys([
         React.createElement('h3', null, 'Error State'),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'error-state',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          hasError: true,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
     );
   },
+  args: {
+    hasError: true,
+  },
 };
 
 export const WithHiddenLabels = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -221,20 +315,26 @@ export const WithHiddenLabels = {
       withKeys([
         React.createElement('h3', null, 'Hidden Labels'),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'hidden-labels',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          hideLabels: true,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
     );
   },
+  args: {
+    hideLabels: true,
+  },
 };
 
 export const WithReverseYears = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -247,21 +347,26 @@ export const WithReverseYears = {
       withKeys([
         React.createElement('h3', null, 'Reverse Years'),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'reverse-years',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          reverseYears: true,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
     );
   },
+  args: {
+    reverseYears: true,
+  },
 };
 
-
 export const WithSmartDateCorrection = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -279,9 +384,12 @@ export const WithSmartDateCorrection = {
           'Try selecting Jan 31, then switch month to February.'
         ),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'smart-correction',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
@@ -290,11 +398,14 @@ export const WithSmartDateCorrection = {
 };
 
 export const WithRangeLimits = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
+    const resolvedMinDate = resolveOptionalDateArg(minDate) ?? new Date(2020, 0, 1);
+    const resolvedMaxDate = resolveOptionalDateArg(maxDate) ?? new Date(2025, 11, 31);
 
     return React.createElement(
       'div',
@@ -309,11 +420,12 @@ export const WithRangeLimits = {
           'Range: 2020-01-01 to 2025-12-31'
         ),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'range-limits',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          minDate: new Date(2020, 0, 1),
-          maxDate: new Date(2025, 11, 31),
+          minDate: resolvedMinDate,
+          maxDate: resolvedMaxDate,
         }),
         renderSelectedDate(selected),
       ])
@@ -322,8 +434,9 @@ export const WithRangeLimits = {
 };
 
 export const WithInvalidOrderFallback = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -341,20 +454,26 @@ export const WithInvalidOrderFallback = {
           'Passing an invalid order falls back to month/day/year.'
         ),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'invalid-order',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          order: 'month-year-day' as unknown as SelectDatepickerOrder,
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
         }),
         renderSelectedDate(selected),
       ])
     );
   },
+  args: {
+    order: 'month-year-day' as unknown as SelectDatepickerOrder,
+  },
 };
 
 export const WithThemingOverrides = {
-  render: () => {
-    const [selected, setSelected] = React.useState<Date | null>(null);
+  render: (args: any) => {
+    const { selectedDate, minDate, maxDate, className, ...rest } = args;
+    const [selected, setSelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -372,10 +491,13 @@ export const WithThemingOverrides = {
           'These styles are applied via CSS custom properties on the root element.'
         ),
         React.createElement(SelectDatepicker, {
+          ...rest,
           id: 'theme-overrides',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          className: 'rsd-theme-aurora',
+          minDate: resolveOptionalDateArg(minDate),
+          maxDate: resolveOptionalDateArg(maxDate),
+          className: className || 'rsd-theme-aurora',
         }),
         renderSelectedDate(selected),
         React.createElement(
