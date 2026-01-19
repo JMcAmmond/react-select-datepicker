@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-Bu-hD8B3.js";import{r as a}from"./iframe-CAuiQoWu.js";import{S as n}from"./SelectDatepicker-C4FRW4Et.js";import"./preload-helper-PPVm8Dsz.js";const s=()=>{const[t,o]=a.useState(null),l=a.useCallback(d=>{o(d)},[]);return e.jsx(e.Fragment,{children:e.jsx(n,{value:t,onChange:l,className:"rsd-theme-sunset",hideLabels:!0,labels:{groupLabel:"Select a date"}})})};s.__docgenInfo={description:"",methods:[],displayName:"DemoPickerComponent"};const g={title:"Welcome",parameters:{layout:"centered",controls:{disable:!0},actions:{disable:!0}}},r={render:()=>e.jsxs("div",{style:{maxWidth:"800px",padding:"40px"},children:[e.jsx("style",{dangerouslySetInnerHTML:{__html:`
+import{j as e}from"./jsx-runtime-BTky52tW.js";import{r as a}from"./iframe-BWuqpQNe.js";import{S as n}from"./SelectDatepicker-C3JAmgIg.js";import"./preload-helper-PPVm8Dsz.js";const s=()=>{const[o,t]=a.useState(null),l=a.useCallback(d=>{t(d)},[]);return e.jsx(e.Fragment,{children:e.jsx(n,{value:o,onChange:l,className:"rsd-theme-sunset",hideLabels:!0,labels:{groupLabel:"Select a date"}})})};s.__docgenInfo={description:"",methods:[],displayName:"DemoPickerComponent"};const g={title:"Welcome",parameters:{layout:"centered",controls:{disable:!0},actions:{disable:!0}}},r={render:()=>e.jsxs("div",{style:{maxWidth:"800px",padding:"40px"},children:[e.jsx("style",{dangerouslySetInnerHTML:{__html:`
           * {
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -126,7 +126,8 @@ export const App = () => {
 - hideLabels?: boolean
 - disabled?: boolean
 - hasError?: boolean
-- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months? }
+- isRequired?: boolean (defaults to false)
+- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months?, errorMessages? }
 `})}),e.jsx("h2",{children:"Examples"}),e.jsx("pre",{children:e.jsx("code",{children:`// Date range
 <SelectDatepicker
   value={value}
@@ -178,6 +179,31 @@ export const App = () => {
 >
   <SelectDatepicker value={value} onChange={onChange} />
 </SelectDatepickerErrorBoundary>
+
+// Required fields
+<SelectDatepicker value={value} onChange={onChange} isRequired />
+
+// Custom error messages
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  hasError
+  labels={{
+    groupLabel: 'Selecciona tu fecha',
+    monthLabel: 'Mes',
+    dayLabel: 'Día',
+    yearLabel: 'Año',
+    monthPlaceholder: 'Selecciona mes',
+    dayPlaceholder: 'Selecciona día',
+    yearPlaceholder: 'Selecciona año',
+    errorMessages: {
+      missingDate: 'Selecciona una fecha',
+      missingField: (field) => \`Selecciona \${field}\`,
+      missingTwoFields: (first, second) => \`Selecciona \${first} y \${second}\`,
+      missingAllFields: 'Selecciona todos los campos',
+    },
+  }}
+/>
 `})}),e.jsx("h2",{children:"Style overrides (CSS variables)"}),e.jsxs("p",{children:["Apply CSS variables on the root element (the wrapper with",e.jsx("code",{children:"rsd__react-select-datepicker"}),") or pass a custom className."]}),e.jsx("pre",{children:e.jsx("code",{children:`<SelectDatepicker
   value={value}
   onChange={onChange}
@@ -399,7 +425,8 @@ export const App = () => {
 - hideLabels?: boolean
 - disabled?: boolean
 - hasError?: boolean
-- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months? }
+- isRequired?: boolean (defaults to false)
+- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months?, errorMessages? }
 \`}</code>\r
         </pre>\r
 \r
@@ -456,6 +483,31 @@ export const App = () => {
 >
   <SelectDatepicker value={value} onChange={onChange} />
 </SelectDatepickerErrorBoundary>
+
+// Required fields
+<SelectDatepicker value={value} onChange={onChange} isRequired />
+
+// Custom error messages
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  hasError
+  labels={{
+    groupLabel: 'Selecciona tu fecha',
+    monthLabel: 'Mes',
+    dayLabel: 'Día',
+    yearLabel: 'Año',
+    monthPlaceholder: 'Selecciona mes',
+    dayPlaceholder: 'Selecciona día',
+    yearPlaceholder: 'Selecciona año',
+    errorMessages: {
+      missingDate: 'Selecciona una fecha',
+      missingField: (field) => \\\`Selecciona \\\${field}\\\`,
+      missingTwoFields: (first, second) => \\\`Selecciona \\\${first} y \\\${second}\\\`,
+      missingAllFields: 'Selecciona todos los campos',
+    },
+  }}
+/>
 \`}</code>\r
         </pre>\r
 \r
