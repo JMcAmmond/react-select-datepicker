@@ -27,7 +27,9 @@ const useStoryDateState = (value: unknown) => {
     }
   }, [value, resolved]);
 
-  return [selected, setSelected] as const;
+  const displaySelected = selected ?? resolved;
+
+  return [selected, setSelected, displaySelected] as const;
 };
 
 const withKeys = (nodes: React.ReactNode[]) =>
@@ -87,8 +89,8 @@ export default meta;
 
 export const Default = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -101,10 +103,11 @@ export const Default = {
           ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -112,8 +115,8 @@ export const Default = {
 
 export const WithDateRange = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -136,10 +139,11 @@ export const WithDateRange = {
           ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolvedMinDate,
           maxDate: resolvedMaxDate,
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -147,8 +151,8 @@ export const WithDateRange = {
 
 export const WithCustomLabels = {
   render: (args: any) => {
-    const { selectedDate, labels, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, labels, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -179,6 +183,7 @@ export const WithCustomLabels = {
           ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
           labels: {
@@ -193,7 +198,7 @@ export const WithCustomLabels = {
             ...labels,
           },
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
         React.createElement(
           'div',
           { style: { marginTop: '10px', color: '#555', fontSize: '13px' } },
@@ -209,8 +214,8 @@ export const WithCustomLabels = {
 
 export const DifferentOrder = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date) => {
       setSelected(date);
     }, []);
@@ -226,10 +231,11 @@ export const DifferentOrder = {
           ...rest,
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -242,7 +248,7 @@ export const Disabled = {
   render: (args: any) => {
     const selectedDate = new Date();
 
-    const { minDate, maxDate, ...rest } = args;
+    const { minDate, maxDate, onChange, onDateChange, ...rest } = args;
 
     return React.createElement(
       'div',
@@ -255,6 +261,7 @@ export const Disabled = {
           ...rest,
           selectedDate: selectedDate,
           onDateChange: () => {},
+          onChange: () => {},
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
@@ -269,8 +276,8 @@ export const Disabled = {
 
 export const WithErrorState = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -287,10 +294,11 @@ export const WithErrorState = {
           id: 'error-state',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -301,8 +309,8 @@ export const WithErrorState = {
 
 export const WithHiddenLabels = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -319,10 +327,11 @@ export const WithHiddenLabels = {
           id: 'hidden-labels',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -333,8 +342,8 @@ export const WithHiddenLabels = {
 
 export const WithReverseYears = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -351,10 +360,11 @@ export const WithReverseYears = {
           id: 'reverse-years',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -365,8 +375,8 @@ export const WithReverseYears = {
 
 export const WithSmartDateCorrection = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -388,10 +398,11 @@ export const WithSmartDateCorrection = {
           id: 'smart-correction',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -399,8 +410,8 @@ export const WithSmartDateCorrection = {
 
 export const WithRangeLimits = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -424,10 +435,11 @@ export const WithRangeLimits = {
           id: 'range-limits',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolvedMinDate,
           maxDate: resolvedMaxDate,
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -435,8 +447,8 @@ export const WithRangeLimits = {
 
 export const WithInvalidOrderFallback = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -458,10 +470,11 @@ export const WithInvalidOrderFallback = {
           id: 'invalid-order',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
       ])
     );
   },
@@ -472,8 +485,8 @@ export const WithInvalidOrderFallback = {
 
 export const WithThemingOverrides = {
   render: (args: any) => {
-    const { selectedDate, minDate, maxDate, className, ...rest } = args;
-    const [selected, setSelected] = useStoryDateState(selectedDate);
+    const { selectedDate, minDate, maxDate, className, onChange, onDateChange, ...rest } = args;
+    const [selected, setSelected, displaySelected] = useStoryDateState(selectedDate);
     const handleDateChange = React.useCallback((date: Date | null) => {
       setSelected(date);
     }, []);
@@ -495,11 +508,12 @@ export const WithThemingOverrides = {
           id: 'theme-overrides',
           selectedDate: selected,
           onDateChange: handleDateChange,
+          onChange: handleDateChange,
           minDate: resolveOptionalDateArg(minDate),
           maxDate: resolveOptionalDateArg(maxDate),
           className: className || 'rsd-theme-aurora',
         }),
-        renderSelectedDate(selected),
+        renderSelectedDate(displaySelected),
         React.createElement(
           'style',
           null,
