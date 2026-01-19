@@ -15,12 +15,10 @@ export const useKeyboardNavigation = (options: KeyboardNavigationOptions = {}) =
     (event: KeyboardEvent) => {
       if (!enabled) return;
 
-      // Only handle arrow keys for navigation, let other keys work normally
+      // Only handle left/right for navigation; let up/down change select value
       switch (event.key) {
         case 'ArrowLeft':
-        case 'ArrowRight':
-        case 'ArrowUp':
-        case 'ArrowDown':
+        case 'ArrowRight': {
           event.preventDefault();
           const direction = event.key.replace('Arrow', '').toLowerCase() as
             | 'up'
@@ -28,6 +26,11 @@ export const useKeyboardNavigation = (options: KeyboardNavigationOptions = {}) =
             | 'left'
             | 'right';
           onArrowKey?.(direction);
+          break;
+        }
+        case 'ArrowUp':
+        case 'ArrowDown':
+          // allow default select behavior
           break;
 
         case 'Enter':
