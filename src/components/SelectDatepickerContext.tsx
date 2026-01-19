@@ -9,6 +9,7 @@ export interface SelectDatepickerContextValue {
   hideLabels?: boolean;
   disabled?: boolean;
   hasError?: boolean;
+  isRequired?: boolean;
   isInvalid?: boolean;
   day: number;
   month: number;

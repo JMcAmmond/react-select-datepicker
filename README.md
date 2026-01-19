@@ -55,6 +55,7 @@ export const App = () => {
 - `hideLabels?: boolean` — Hide per-field labels.
 - `disabled?: boolean` — Disable all selects.
 - `hasError?: boolean` — Error state (shows validation message).
+- `isRequired?: boolean` — Marks all fields as required (defaults to false).
 - `labels?: { ... }` — Label and placeholder overrides.
 
 ### labels
@@ -134,6 +135,12 @@ export const App = () => {
 
 ```tsx
 <SelectDatepicker value={value} onChange={onChange} hasError />
+```
+
+### Required fields
+
+```tsx
+<SelectDatepicker value={value} onChange={onChange} isRequired />
 ```
 
 ### Theming (CSS variables)

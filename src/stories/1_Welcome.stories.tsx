@@ -198,7 +198,8 @@ export const App = () => {
 - hideLabels?: boolean
 - disabled?: boolean
 - hasError?: boolean
-- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months? }
+- isRequired?: boolean (defaults to false)
+- labels?: { groupLabel?, monthLabel?, dayLabel?, yearLabel?, monthPlaceholder?, dayPlaceholder?, yearPlaceholder?, months?, errorMessages? }
 `}</code>
         </pre>
 
@@ -255,6 +256,31 @@ export const App = () => {
 >
   <SelectDatepicker value={value} onChange={onChange} />
 </SelectDatepickerErrorBoundary>
+
+// Required fields
+<SelectDatepicker value={value} onChange={onChange} isRequired />
+
+// Custom error messages
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  hasError
+  labels={{
+    groupLabel: 'Selecciona tu fecha',
+    monthLabel: 'Mes',
+    dayLabel: 'Día',
+    yearLabel: 'Año',
+    monthPlaceholder: 'Selecciona mes',
+    dayPlaceholder: 'Selecciona día',
+    yearPlaceholder: 'Selecciona año',
+    errorMessages: {
+      missingDate: 'Selecciona una fecha',
+      missingField: (field) => \`Selecciona \${field}\`,
+      missingTwoFields: (first, second) => \`Selecciona \${first} y \${second}\`,
+      missingAllFields: 'Selecciona todos los campos',
+    },
+  }}
+/>
 `}</code>
         </pre>
 

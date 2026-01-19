@@ -30,4 +30,15 @@ export type SelectDatepickerLabels = {
   readonly dayPlaceholder?: string;
   /** Custom month names (1-12 indexed) */
   readonly months?: Months;
+  /** Custom error messages for validation */
+  readonly errorMessages?: {
+    /** Message when no fields are selected */
+    readonly missingDate?: string;
+    /** Message when exactly one field is missing */
+    readonly missingField?: (fieldLabel: string) => string;
+    /** Message when exactly two fields are missing */
+    readonly missingTwoFields?: (firstFieldLabel: string, secondFieldLabel: string) => string;
+    /** Message when all fields are missing */
+    readonly missingAllFields?: string;
+  };
 };

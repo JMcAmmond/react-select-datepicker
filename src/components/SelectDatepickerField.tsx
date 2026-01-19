@@ -28,6 +28,7 @@ export const SelectDatepickerField = ({ fieldKey }: SelectDatepickerFieldProps) 
     dayRef,
     monthRef,
     yearRef,
+    isRequired,
     onDayChange,
     onMonthChange,
     onYearChange,
@@ -83,7 +84,7 @@ export const SelectDatepickerField = ({ fieldKey }: SelectDatepickerFieldProps) 
       onChangeHandler={field.onChangeHandler}
       selectOptions={field.options}
       ref={field.ref}
-      required={true}
+      required={isRequired}
       invalid={isInvalid}
     />
   );

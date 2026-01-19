@@ -25,6 +25,7 @@ const SelectDatepicker = ({
   onChange,
   disabled = false,
   hasError = false,
+  isRequired = false,
   monthRef,
   yearRef,
   dayRef,
@@ -252,7 +253,6 @@ const SelectDatepicker = ({
     setDay(Number(e.target.value));
   }, []);
 
-
   useEffect(() => {
     const nextTime =
       resolvedSelectedDate && isDate(resolvedSelectedDate) && isValidDate(resolvedSelectedDate)
@@ -281,9 +281,7 @@ const SelectDatepicker = ({
   useEffect(() => {
     if (isSyncingFromValueRef.current) {
       const isSyncedValue =
-        resolvedSelectedDate &&
-        isDate(resolvedSelectedDate) &&
-        isValidDate(resolvedSelectedDate)
+        resolvedSelectedDate && isDate(resolvedSelectedDate) && isValidDate(resolvedSelectedDate)
           ? resolvedSelectedDate.getFullYear() === year &&
             resolvedSelectedDate.getMonth() + 1 === month &&
             resolvedSelectedDate.getDate() === day
@@ -311,33 +309,56 @@ const SelectDatepicker = ({
         resolvedOnChange?.(null);
       }
     }
-  }, [day, month, year, resolvedOnChange, effectiveMinDate, effectiveMaxDate, resolvedSelectedDate]);
+  }, [
+    day,
+    month,
+    year,
+    resolvedOnChange,
+    effectiveMinDate,
+    effectiveMaxDate,
+    resolvedSelectedDate,
+  ]);
 
   // Memoize validation message to avoid recalculation
   const validationMessage = useMemo(() => {
     if (!hasError) return null;
 
     if (day === -1 && month === -1 && year === -1) {
-      return 'Please select a date';
+      return labels.errorMessages?.missingDate ?? 'Please select a date';
     }
 
     const missingFields = [];
-    if (day === -1) missingFields.push(labels.dayLabel?.toLowerCase() || 'day');
-    if (month === -1) missingFields.push(labels.monthLabel?.toLowerCase() || 'month');
-    if (year === -1) missingFields.push(labels.yearLabel?.toLowerCase() || 'year');
+    if (day === -1) missingFields.push(labels.dayLabel || 'day');
+    if (month === -1) missingFields.push(labels.monthLabel || 'month');
+    if (year === -1) missingFields.push(labels.yearLabel || 'year');
 
     if (missingFields.length === 0) {
       return null;
     }
 
     if (missingFields.length === 1) {
-      return `Please select a ${missingFields[0]}`;
+      return (
+        labels.errorMessages?.missingField?.(missingFields[0]) ??
+        `Please select a ${missingFields[0]}`
+      );
     } else if (missingFields.length === 2) {
-      return `Please select a ${missingFields[0]} and ${missingFields[1]}`;
+      return (
+        labels.errorMessages?.missingTwoFields?.(missingFields[0], missingFields[1]) ??
+        `Please select a ${missingFields[0]} and ${missingFields[1]}`
+      );
     } else {
-      return 'Please select all date fields';
+      return labels.errorMessages?.missingAllFields ?? 'Please select all date fields';
     }
-  }, [hasError, day, month, year, labels.dayLabel, labels.monthLabel, labels.yearLabel]);
+  }, [
+    hasError,
+    day,
+    month,
+    year,
+    labels.dayLabel,
+    labels.monthLabel,
+    labels.yearLabel,
+    labels.errorMessages,
+  ]);
 
   const contextValue = useMemo(
     () => ({
@@ -346,6 +367,7 @@ const SelectDatepicker = ({
       hideLabels,
       disabled,
       hasError,
+      isRequired,
       isInvalid: Boolean(validationMessage),
       day,
       month,
@@ -366,6 +388,7 @@ const SelectDatepicker = ({
       hideLabels,
       disabled,
       hasError,
+      isRequired,
       validationMessage,
       day,
       month,
@@ -387,8 +410,8 @@ const SelectDatepicker = ({
   const legendText = labels.groupLabel
     ? labels.groupLabel
     : labels.yearLabel && labels.monthLabel && labels.dayLabel
-      ? `Select ${labels.monthLabel}, ${labels.dayLabel}, and ${labels.yearLabel}`
-      : 'Select date';
+    ? `Select ${labels.monthLabel}, ${labels.dayLabel}, and ${labels.yearLabel}`
+    : 'Select date';
 
   return (
     <fieldset

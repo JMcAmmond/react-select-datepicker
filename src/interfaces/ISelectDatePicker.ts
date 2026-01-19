@@ -24,6 +24,8 @@ export interface ISelectDatepicker {
   disabled?: boolean;
   /** Whether the date picker has an error state */
   hasError?: boolean;
+  /** Whether all select inputs are marked required */
+  isRequired?: boolean;
   /** Ref for the month select element */
   monthRef?: React.LegacyRef<HTMLSelectElement>;
   /** Ref for the year select element */
