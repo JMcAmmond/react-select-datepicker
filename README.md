@@ -157,6 +157,34 @@ export const App = () => {
 }
 ```
 
+#### Style options (CSS variables)
+
+Apply these variables on the root element (the wrapper with `rsd__react-select-datepicker`) or on a custom className.
+
+| Variable | Default | Used for |
+| --- | --- | --- |
+| `--rsd-gap` | `8px` | Space between selects in the row. |
+| `--rsd-legend-font-size` | `16px` | Group label font size. |
+| `--rsd-legend-font-weight` | `600` | Group label font weight. |
+| `--rsd-legend-margin-bottom` | `8px` | Spacing below group label. |
+| `--rsd-error-color` | `#d73a49` | Error message color. |
+| `--rsd-error-font-size` | `14px` | Error message font size. |
+| `--rsd-error-margin-top` | `8px` | Spacing above error message. |
+| `--rsd-required-color` | `#666` | Asterisk/required indicator color. |
+| `--rsd-required-margin-left` | `4px` | Spacing between label text and required indicator. |
+| `--rsd-label-margin-bottom` | `4px` | Spacing below field labels. |
+| `--rsd-select-padding` | `6px 8px` | Select padding. |
+| `--rsd-select-border` | `1px solid #d0d7de` | Select border. |
+| `--rsd-select-border-radius` | `6px` | Select border radius. |
+| `--rsd-select-font-size` | `14px` | Select font size. |
+| `--rsd-select-font-family` | `inherit` | Select font family. |
+| `--rsd-select-line-height` | `1.2` | Select line height. |
+| `--rsd-select-hover-border` | `#9aa4b2` | Select border color on hover. |
+| `--rsd-select-focus-border` | `#0969da` | Select border color on focus. |
+| `--rsd-select-focus-ring` | `0 0 0 3px rgba(9, 105, 218, 0.25)` | Select focus ring shadow. |
+| `--rsd-select-disabled-bg` | `#f6f8fa` | Disabled select background. |
+| `--rsd-select-disabled-color` | `#8c959f` | Disabled select text color. |
+
 ### Error boundary
 
 ```tsx

@@ -13,6 +13,11 @@
   --rsd-select-border: 1px solid #d0d7de;
   --rsd-select-border-radius: 6px;
   --rsd-select-font-size: 14px;
+  --rsd-select-font-family: inherit;
+  --rsd-select-line-height: 1.2;
+  --rsd-select-hover-border: #9aa4b2;
+  --rsd-select-focus-border: #0969da;
+  --rsd-select-focus-ring: 0 0 0 3px rgba(9, 105, 218, 0.25);
   --rsd-select-disabled-bg: #f6f8fa;
   --rsd-select-disabled-color: #8c959f;
 

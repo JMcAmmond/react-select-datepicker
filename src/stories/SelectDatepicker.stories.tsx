@@ -375,60 +375,68 @@ export const WithThemingOverrides = {
           id: 'theme-overrides',
           selectedDate: selected,
           onDateChange: handleDateChange,
-          className: 'rsd-theme-sunset',
+          className: 'rsd-theme-aurora',
         }),
         renderSelectedDate(selected),
         React.createElement(
           'style',
           null,
-          `.rsd-theme-sunset {
-            --rsd-gap: 18px;
-            --rsd-legend-font-size: 20px;
-            --rsd-legend-font-weight: 800;
-            --rsd-error-color: #ff00a8;
-            --rsd-select-padding: 12px 16px;
-            --rsd-select-border: 2px solid #7c3aed;
-            --rsd-select-border-radius: 999px;
-            --rsd-select-font-size: 16px;
-            --rsd-select-disabled-bg: #fdf4ff;
-            --rsd-select-disabled-color: #a21caf;
+          `.rsd-theme-aurora {
+            --rsd-gap: 14px;
+            --rsd-legend-font-size: 18px;
+            --rsd-legend-font-weight: 700;
+            --rsd-error-color: #dc2626;
+            --rsd-select-padding: 12px 14px;
+            --rsd-select-border: 1px solid rgba(15, 23, 42, 0.15);
+            --rsd-select-border-radius: 14px;
+            --rsd-select-font-size: 15px;
+            --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rsd-select-hover-border: rgba(37, 99, 235, 0.55);
+            --rsd-select-focus-border: #2563eb;
+            --rsd-select-focus-ring: 0 0 0 4px rgba(37, 99, 235, 0.2);
+            --rsd-select-disabled-bg: rgba(15, 23, 42, 0.06);
+            --rsd-select-disabled-color: rgba(15, 23, 42, 0.45);
             --rsd-required-color: #16a34a;
 
-            background: radial-gradient(circle at 20% 20%, #fef9c3, #fbcfe8 40%, #c7d2fe 70%, #f0abfc 100%);
-            padding: 20px;
-            border-radius: 18px;
-            border: 2px dashed #0ea5e9;
-            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.25), 0 6px 12px rgba(124, 58, 237, 0.2);
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.08), rgba(59, 130, 246, 0.06)),
+              radial-gradient(circle at top right, rgba(16, 185, 129, 0.18), transparent 55%);
+            padding: 22px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
           }
 
-          .rsd-theme-sunset .rsd__select {
-            background: linear-gradient(135deg, #fef3c7, #e0f2fe);
+          .rsd-theme-aurora .rsd__legend {
+            color: #0f172a;
+            letter-spacing: 0.02em;
+          }
+
+          .rsd-theme-aurora .rsd__select {
+            background: rgba(255, 255, 255, 0.85);
             color: #0f172a;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
             width: 100%;
             max-width: 100%;
             box-sizing: border-box;
           }
 
-          .rsd-theme-sunset .rsd__select-row {
+          .rsd-theme-aurora .rsd__select-row {
             flex-wrap: nowrap;
-            overflow-x: auto;
-            scrollbar-width: thin;
+            gap: 16px;
           }
 
-          .rsd-theme-sunset .rsd__label {
+          .rsd-theme-aurora .rsd__label {
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #7c3aed;
+            letter-spacing: 0.08em;
+            font-size: 12px;
+            color: rgba(15, 23, 42, 0.6);
           }
 
-          .rsd-theme-sunset .rsd__error-message {
-            background: #fff1f2;
-            padding: 8px 12px;
-            border-radius: 10px;
+          .rsd-theme-aurora .rsd__error-message {
+            background: rgba(248, 113, 113, 0.12);
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-weight: 600;
           }`
         ),
       ])

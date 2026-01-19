@@ -12,6 +12,18 @@
   border: var(--rsd-select-border);
   border-radius: var(--rsd-select-border-radius);
   font-size: var(--rsd-select-font-size);
+  font-family: var(--rsd-select-font-family);
+  line-height: var(--rsd-select-line-height);
+}
+
+.rsd__select:not(:disabled):hover {
+  border-color: var(--rsd-select-hover-border);
+}
+
+.rsd__select:focus-visible {
+  outline: none;
+  border-color: var(--rsd-select-focus-border);
+  box-shadow: var(--rsd-select-focus-ring);
 }
 
 .rsd__select:disabled {
