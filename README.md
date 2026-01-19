@@ -64,6 +64,11 @@ export const App = () => {
 - `monthLabel`, `dayLabel`, `yearLabel` — Field labels.
 - `monthPlaceholder`, `dayPlaceholder`, `yearPlaceholder` — Field placeholders.
 - `months?: { 1: string; ... 12: string }` — Custom month names.
+- `errorMessages?: { ... }` — Custom validation messages.
+  - `missingDate?: string` — Used when all fields are empty.
+  - `missingField?: (fieldLabel: string) => string` — Used when exactly one field is missing.
+  - `missingTwoFields?: (firstFieldLabel: string, secondFieldLabel: string) => string` — Used when exactly two fields are missing.
+  - `missingAllFields?: string` — Used when three fields are missing.
 
 ## Examples
 
@@ -141,6 +146,24 @@ export const App = () => {
 
 ```tsx
 <SelectDatepicker value={value} onChange={onChange} isRequired />
+```
+
+### Custom error messages
+
+```tsx
+<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  hasError
+  labels={{
+    errorMessages: {
+      missingDate: 'Selecciona una fecha',
+      missingField: (field) => `Selecciona ${field}`,
+      missingTwoFields: (first, second) => `Selecciona ${first} y ${second}`,
+      missingAllFields: 'Selecciona todos los campos',
+    },
+  }}
+/>
 ```
 
 ### Theming (CSS variables)
