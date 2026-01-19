@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-DbGwL0xT.js";import{r as a}from"./iframe-BkHhrT6h.js";import{S as i}from"./SelectDatepicker-CFpfacyU.js";import"./preload-helper-PPVm8Dsz.js";const t=()=>{const[o,l]=a.useState(null),s=a.useCallback(n=>{l(n)},[]);return e.jsx(e.Fragment,{children:e.jsx(i,{value:o,onChange:s,className:"rsd-theme-sunset",hideLabels:!0,labels:{groupLabel:"Select a date"}})})};t.__docgenInfo={description:"",methods:[],displayName:"DemoPickerComponent"};const h={title:"Welcome",parameters:{layout:"centered"}},r={render:()=>e.jsxs("div",{style:{maxWidth:"800px",padding:"40px"},children:[e.jsx("style",{dangerouslySetInnerHTML:{__html:`
+import{j as e}from"./jsx-runtime-BGyi-95w.js";import{r as a}from"./iframe-n2jbfaGn.js";import{S as n}from"./SelectDatepicker-BrSbr6XD.js";import"./preload-helper-PPVm8Dsz.js";const s=()=>{const[t,o]=a.useState(null),l=a.useCallback(d=>{o(d)},[]);return e.jsx(e.Fragment,{children:e.jsx(n,{value:t,onChange:l,className:"rsd-theme-sunset",hideLabels:!0,labels:{groupLabel:"Select a date"}})})};s.__docgenInfo={description:"",methods:[],displayName:"DemoPickerComponent"};const g={title:"Welcome",parameters:{layout:"centered"}},r={render:()=>e.jsxs("div",{style:{maxWidth:"800px",padding:"40px"},children:[e.jsx("style",{dangerouslySetInnerHTML:{__html:`
           * {
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -45,6 +45,10 @@ import{j as e}from"./jsx-runtime-DbGwL0xT.js";import{r as a}from"./iframe-BkHhrT
             --rsd-select-padding: 10px 12px;
             --rsd-select-border-radius: 10px;
             --rsd-select-font-size: 15px;
+            --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rsd-select-hover-border: rgba(30, 64, 175, 0.5);
+            --rsd-select-focus-border: #2563eb;
+            --rsd-select-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
             --rsd-select-disabled-bg: #fff7ed;
             --rsd-select-disabled-color: #9a3412;
             --rsd-required-color: #9a3412;
@@ -92,7 +96,7 @@ import{j as e}from"./jsx-runtime-DbGwL0xT.js";import{r as a}from"./iframe-BkHhrT
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: #24292e;
           }
-        `}}),e.jsxs("section",{className:"center header",children:[e.jsx("img",{src:"https://raw.githubusercontent.com/JMcAmmond/public-assets/main/logo.svg",alt:"Select Datepicker",style:{marginBottom:"1rem",maxWidth:"300px"}}),e.jsx("p",{className:"sub-heading",children:"A simple and reusable dropdown datepicker component for React."}),e.jsxs("div",{className:"badges flex-center",style:{gap:"8px"},children:[e.jsx("a",{href:"https://www.npmjs.com/package/react-select-datepicker",target:"_blank",rel:"noopener noreferrer",children:e.jsx("img",{src:"https://img.shields.io/npm/v/react-select-datepicker.svg",alt:"NPM version"})}),e.jsx("img",{src:"https://img.shields.io/bundlephobia/min/react-select-datepicker",alt:"Bundle size"}),e.jsx("img",{src:"https://img.shields.io/github/contributors/jmcammond/react-select-datepicker",alt:"GitHub contributors"}),e.jsx("img",{src:"https://img.shields.io/npm/dt/react-select-datepicker",alt:"NPM downloads"}),e.jsx("img",{src:"https://img.shields.io/npm/l/react-select-datepicker",alt:"License"})]})]}),e.jsx("div",{className:"flex-center demo",children:e.jsx("div",{children:e.jsx(t,{})})}),e.jsxs("section",{style:{maxWidth:"700px",margin:"0 auto"},children:[e.jsx("h2",{children:"Install"}),e.jsx("pre",{children:e.jsx("code",{children:"npm install --save react-select-datepicker"})}),e.jsx("h2",{children:"Usage"}),e.jsx("pre",{children:e.jsx("code",{children:`import React, { useState, useCallback } from 'react';
+        `}}),e.jsxs("section",{className:"center header",children:[e.jsx("img",{src:"https://raw.githubusercontent.com/JMcAmmond/public-assets/main/logo.svg",alt:"Select Datepicker",style:{marginBottom:"1rem",maxWidth:"300px"}}),e.jsx("p",{className:"sub-heading",children:"A simple and reusable dropdown datepicker component for React."}),e.jsxs("div",{className:"badges flex-center",style:{gap:"8px"},children:[e.jsx("a",{href:"https://www.npmjs.com/package/react-select-datepicker",target:"_blank",rel:"noopener noreferrer",children:e.jsx("img",{src:"https://img.shields.io/npm/v/react-select-datepicker.svg",alt:"NPM version"})}),e.jsx("img",{src:"https://img.shields.io/bundlephobia/min/react-select-datepicker",alt:"Bundle size"}),e.jsx("img",{src:"https://img.shields.io/github/contributors/jmcammond/react-select-datepicker",alt:"GitHub contributors"}),e.jsx("img",{src:"https://img.shields.io/npm/dt/react-select-datepicker",alt:"NPM downloads"}),e.jsx("img",{src:"https://img.shields.io/npm/l/react-select-datepicker",alt:"License"})]})]}),e.jsx("div",{className:"flex-center demo",children:e.jsx("div",{children:e.jsx(s,{})})}),e.jsxs("section",{style:{maxWidth:"700px",margin:"0 auto"},children:[e.jsx("h2",{children:"Install"}),e.jsx("pre",{children:e.jsx("code",{children:"npm install --save react-select-datepicker"})}),e.jsx("h2",{children:"Usage"}),e.jsx("pre",{children:e.jsx("code",{children:`import React, { useState, useCallback } from 'react';
 import { SelectDatepicker } from 'react-select-datepicker';
 
 export const App = () => {
@@ -174,7 +178,46 @@ export const App = () => {
 >
   <SelectDatepicker value={value} onChange={onChange} />
 </SelectDatepickerErrorBoundary>
-`})})]})]})};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+`})}),e.jsx("h2",{children:"Style overrides (CSS variables)"}),e.jsxs("p",{children:["Apply CSS variables on the root element (the wrapper with",e.jsx("code",{children:"rsd__react-select-datepicker"}),") or pass a custom className."]}),e.jsx("pre",{children:e.jsx("code",{children:`<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  className="my-datepicker-theme"
+/>`})}),e.jsx("pre",{children:e.jsx("code",{children:`.my-datepicker-theme {
+  --rsd-gap: 12px;
+  --rsd-legend-font-size: 18px;
+  --rsd-legend-font-weight: 700;
+  --rsd-error-color: #b42318;
+  --rsd-select-padding: 10px 12px;
+  --rsd-select-border-radius: 10px;
+  --rsd-select-font-size: 15px;
+  --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rsd-select-hover-border: rgba(30, 64, 175, 0.5);
+  --rsd-select-focus-border: #2563eb;
+  --rsd-select-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  --rsd-select-disabled-bg: #fff7ed;
+  --rsd-select-disabled-color: #9a3412;
+  --rsd-required-color: #9a3412;
+}`})}),e.jsx("h3",{children:"Available variables"}),e.jsx("pre",{children:e.jsx("code",{children:`--rsd-gap
+--rsd-legend-font-size
+--rsd-legend-font-weight
+--rsd-legend-margin-bottom
+--rsd-error-color
+--rsd-error-font-size
+--rsd-error-margin-top
+--rsd-required-color
+--rsd-required-margin-left
+--rsd-label-margin-bottom
+--rsd-select-padding
+--rsd-select-border
+--rsd-select-border-radius
+--rsd-select-font-size
+--rsd-select-font-family
+--rsd-select-line-height
+--rsd-select-hover-border
+--rsd-select-focus-border
+--rsd-select-focus-ring
+--rsd-select-disabled-bg
+--rsd-select-disabled-color`})})]})]})};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
   render: () => <div style={{
     maxWidth: '800px',
     padding: '40px'
@@ -227,6 +270,10 @@ export const App = () => {
             --rsd-select-padding: 10px 12px;
             --rsd-select-border-radius: 10px;
             --rsd-select-font-size: 15px;
+            --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --rsd-select-hover-border: rgba(30, 64, 175, 0.5);
+            --rsd-select-focus-border: #2563eb;
+            --rsd-select-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
             --rsd-select-disabled-bg: #fff7ed;
             --rsd-select-disabled-color: #9a3412;
             --rsd-required-color: #9a3412;
@@ -411,6 +458,62 @@ export const App = () => {
 </SelectDatepickerErrorBoundary>
 \`}</code>\r
         </pre>\r
+\r
+        <h2>Style overrides (CSS variables)</h2>\r
+        <p>\r
+          Apply CSS variables on the root element (the wrapper with\r
+          <code>rsd__react-select-datepicker</code>) or pass a custom className.\r
+        </p>\r
+        <pre>\r
+          <code>{\`<SelectDatepicker
+  value={value}
+  onChange={onChange}
+  className="my-datepicker-theme"
+/>\`}</code>\r
+        </pre>\r
+        <pre>\r
+          <code>{\`.my-datepicker-theme {
+  --rsd-gap: 12px;
+  --rsd-legend-font-size: 18px;
+  --rsd-legend-font-weight: 700;
+  --rsd-error-color: #b42318;
+  --rsd-select-padding: 10px 12px;
+  --rsd-select-border-radius: 10px;
+  --rsd-select-font-size: 15px;
+  --rsd-select-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rsd-select-hover-border: rgba(30, 64, 175, 0.5);
+  --rsd-select-focus-border: #2563eb;
+  --rsd-select-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  --rsd-select-disabled-bg: #fff7ed;
+  --rsd-select-disabled-color: #9a3412;
+  --rsd-required-color: #9a3412;
+}\`}</code>\r
+        </pre>\r
+\r
+        <h3>Available variables</h3>\r
+        <pre>\r
+          <code>{\`--rsd-gap
+--rsd-legend-font-size
+--rsd-legend-font-weight
+--rsd-legend-margin-bottom
+--rsd-error-color
+--rsd-error-font-size
+--rsd-error-margin-top
+--rsd-required-color
+--rsd-required-margin-left
+--rsd-label-margin-bottom
+--rsd-select-padding
+--rsd-select-border
+--rsd-select-border-radius
+--rsd-select-font-size
+--rsd-select-font-family
+--rsd-select-line-height
+--rsd-select-hover-border
+--rsd-select-focus-border
+--rsd-select-focus-ring
+--rsd-select-disabled-bg
+--rsd-select-disabled-color\`}</code>\r
+        </pre>\r
       </section>\r
     </div>
-}`,...r.parameters?.docs?.source}}};const g=["Welcome"];export{r as Welcome,g as __namedExportsOrder,h as default};
+}`,...r.parameters?.docs?.source}}};const h=["Welcome"];export{r as Welcome,h as __namedExportsOrder,g as default};
